@@ -90,6 +90,25 @@ export default function FlyerPreview() {
       if (!existingEventId && s.vibe) {
         await seedTasks(id, s.vibe);
         track("Event Created", { event_id: id, vibe: s.vibe, size: s.size, has_photo: !!s.photoDataUrl });
+        // Email host confirmation
+        if (user.email) {
+          const dateStr = s.date
+            ? `${s.date.year}-${String(s.date.month + 1).padStart(2, "0")}-${String(s.date.day).padStart(2, "0")}`
+            : null;
+          fetch("/api/event-created-email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: user.email,
+              eventId: id,
+              vibe: s.vibe,
+              familyName: s.familyName,
+              address: s.address,
+              date: dateStr,
+              time: s.time,
+            }),
+          }).catch(() => {});
+        }
       }
 
       // 3a. Notify marc if this is a new street closure party
