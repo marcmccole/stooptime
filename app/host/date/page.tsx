@@ -2,6 +2,7 @@
 import { useState } from "react";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState, getPartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 
 const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -191,6 +192,11 @@ export default function Step4() {
           onClick={() => {
             if (ready && selectedDay !== null) {
               savePartyState({ date: { year: viewYear, month: viewMonth, day: selectedDay }, time });
+              track("Date Selected", {
+                date: `${viewYear}-${viewMonth + 1}-${selectedDay}`,
+                time,
+                is_weekend: isWeekend(selectedDay),
+              });
             }
           }}
           className="btn-primary"

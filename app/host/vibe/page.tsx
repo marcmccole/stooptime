@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 
 const vibes = [
   { id: "bbq",       label: "Backyard BBQ",        emoji: "🔥" },
@@ -31,7 +32,7 @@ export default function Step5() {
         {vibes.map(({ id, label, emoji }) => (
           <button
             key={id}
-            onClick={() => { savePartyState({ vibe: id }); router.push("/host/about"); }}
+            onClick={() => { savePartyState({ vibe: id }); track("Vibe Selected", { vibe: id, label }); router.push("/host/about"); }}
             className="option-card"
             style={{ textAlign: "center", padding: "18px 12px" }}
           >

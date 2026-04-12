@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 import { supabase } from "@/lib/supabase";
 
 type AgeRange = "baby" | "toddler" | "elementary" | "teen";
@@ -205,6 +206,13 @@ export default function Step6() {
                 pets: pets.map(({ name, petType }) => ({ name, petType })),
                 familyNote,
                 whyNote,
+              });
+              track("About Completed", {
+                has_partner: !!partnerName.trim(),
+                has_kids: kids.length > 0,
+                kid_count: kids.length,
+                has_pets: pets.length > 0,
+                has_why_note: !!whyNote.trim(),
               });
             }
           }}

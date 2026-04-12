@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import ReactCrop, { type PercentCrop, centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { getPartyState, savePartyState, PartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 import { supabase } from "@/lib/supabase";
 import {
   getEvent, getRsvps, getTasks, saveEvent,
@@ -337,6 +338,7 @@ export default function ManageEvent() {
   const cropImgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    track("Manage Event Viewed");
     const s = getPartyState();
     setParty(s);
 
@@ -426,9 +428,11 @@ export default function ManageEvent() {
   const handleClaimTask = async (id: number, uuid?: string) => {
     const name = party.yourName || "You";
     const ini = name[0].toUpperCase();
+    const taskTitle = tasks.find(t => t.id === id)?.title;
     setTasks(prev => prev.map(t =>
       t.id === id ? { ...t, claimedBy: name, claimedInitials: ini, claimedColor: "#3B6D11" } : t
     ));
+    track("Task Claimed", { context: "manage", task_title: taskTitle });
     if (uuid) await dbClaimTask(uuid, name);
   };
 
@@ -521,6 +525,7 @@ export default function ManageEvent() {
 
   const sendMessage = () => {
     if (!newMessage.trim()) return;
+    track("Message Sent", { context: "manage", is_host: true });
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
     setMessages(prev => [...prev, {
@@ -536,6 +541,7 @@ export default function ManageEvent() {
   };
 
   const cancelEvent = async () => {
+    track("Event Cancelled", { event_id: eventId });
     if (eventId) await dbCancelEvent(eventId);
     localStorage.removeItem("stoop_event_id");
     window.location.href = "/";
@@ -1029,7 +1035,7 @@ export default function ManageEvent() {
         <div style={{ padding: "16px 20px 40px" }}>
           <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1A1A1A", margin: 0 }}>Your flyer</h2>
-            <button onClick={() => window.print()} style={{
+            <button onClick={() => { track("Flyer Printed", { context: "manage" }); window.print(); }} style={{
               background: "#E8521A", color: "white", border: "none", borderRadius: 50,
               padding: "9px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
             }}>

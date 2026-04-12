@@ -4,6 +4,7 @@ import Script from "next/script";
 import usePlacesAutocomplete, { Suggestion } from "use-places-autocomplete";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 
 function AddressInput({ onSelect }: { onSelect: (val: string) => void }) {
   const {
@@ -123,6 +124,7 @@ export default function Step1() {
   useEffect(() => {
     // Clear any previous event so the host flow always creates a new event
     localStorage.removeItem("stoop_event_id");
+    track("Address Step Viewed");
   }, []);
 
   return (
@@ -168,7 +170,7 @@ export default function Step1() {
         <div style={{ marginTop: "auto" }}>
           <a
             href={address.trim() ? "/host/size" : undefined}
-            onClick={() => { if (address.trim()) savePartyState({ address }); }}
+            onClick={() => { if (address.trim()) { savePartyState({ address }); track("Address Entered"); } }}
             className="btn-primary"
             style={{
               display: "block", textAlign: "center",

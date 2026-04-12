@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import StepLayout from "@/components/onboarding/StepLayout";
+import { track } from "@/lib/mixpanel";
 
 export default function Step3() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function Step3() {
   const [error, setError] = useState<string | null>(null);
 
   const signInWithGoogle = async () => {
+    track("Auth Started", { method: "google", context: "host_flow" });
     setLoading(true);
     setError(null);
     const { error } = await supabase.auth.signInWithOAuth({
@@ -27,6 +29,7 @@ export default function Step3() {
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
+    track("Auth Started", { method: "magic_link", context: "host_flow" });
     setLoading(true);
     setError(null);
     const { error } = await supabase.auth.signInWithOtp({
@@ -36,7 +39,7 @@ export default function Step3() {
       },
     });
     setLoading(false);
-    if (error) { setError(error.message); } else { setSent(true); }
+    if (error) { setError(error.message); } else { track("Magic Link Sent", { context: "host_flow" }); setSent(true); }
   };
 
   if (sent) {

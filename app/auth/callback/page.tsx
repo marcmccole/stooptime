@@ -2,6 +2,7 @@
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { identify, track } from "@/lib/mixpanel";
 
 function CallbackHandler() {
   const router = useRouter();
@@ -17,18 +18,18 @@ function CallbackHandler() {
     if (code) {
       supabase.auth.exchangeCodeForSession(code).then(({ data }) => {
         const user = data?.user;
-        // New user if created within the last 10 seconds
-        if (user?.email && user.created_at) {
-          const ageMs = Date.now() - new Date(user.created_at).getTime();
-          if (ageMs < 10_000) {
+        if (user) {
+          const name = user.user_metadata?.full_name ?? user.user_metadata?.name ?? "";
+          identify(user.id, { $email: user.email, $name: name });
+          const ageMs = user.created_at ? Date.now() - new Date(user.created_at).getTime() : Infinity;
+          const isNewUser = ageMs < 10_000;
+          track("Auth Completed", { is_new_user: isNewUser });
+          if (isNewUser && user.email) {
             fetch("/api/welcome-email", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: user.email,
-                name: user.user_metadata?.full_name ?? user.user_metadata?.name ?? "",
-              }),
-            }).catch(() => {}); // fire and forget
+              body: JSON.stringify({ email: user.email, name }),
+            }).catch(() => {});
           }
         }
         router.replace(next);

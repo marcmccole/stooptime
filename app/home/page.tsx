@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import { getEventsByHost, getRsvpCount, DbEvent } from "@/lib/db";
+import { track, identify } from "@/lib/mixpanel";
 
 const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DAYS_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -52,6 +53,8 @@ export default function HomeSignedIn() {
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
       if (!user) { window.location.href = "/"; return; }
+      identify(user.id, { $email: user.email, $name: user.user_metadata?.full_name ?? "" });
+      track("Home Viewed");
       const evts = await getEventsByHost(user.id);
       setEvents(evts);
       const counts: Record<string, number> = {};

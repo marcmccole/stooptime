@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { getPartyState, savePartyState, PartyState } from "@/lib/party-state";
 import { supabase } from "@/lib/supabase";
 import { saveEvent, seedTasks, uploadPhoto } from "@/lib/db";
+import { track } from "@/lib/mixpanel";
 
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -88,6 +89,7 @@ export default function FlyerPreview() {
       // 2. Seed tasks if this is a brand-new event
       if (!existingEventId && s.vibe) {
         await seedTasks(id, s.vibe);
+        track("Event Created", { event_id: id, vibe: s.vibe, size: s.size, has_photo: !!s.photoDataUrl });
       }
 
       // 3a. Notify marc if this is a new street closure party
@@ -341,7 +343,7 @@ export default function FlyerPreview() {
       {/* Actions */}
       <div className="no-print" style={{ maxWidth: 480, margin: "0 auto", padding: "0 20px 16px" }}>
         <button
-          onClick={() => window.print()}
+          onClick={() => { track("Flyer Printed", { context: "preview" }); window.print(); }}
           style={{
             width: "100%", padding: "15px 20px", borderRadius: 50,
             background: "#E8521A", color: "white", border: "none",

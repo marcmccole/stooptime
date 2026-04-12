@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { track } from "@/lib/mixpanel";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ export default function SignIn() {
   const [error, setError] = useState<string | null>(null);
 
   const handleGoogleSignIn = () => {
+    track("Auth Started", { method: "google", context: "sign_in" });
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback?next=/home` },
@@ -18,6 +20,7 @@ export default function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
+    track("Auth Started", { method: "magic_link", context: "sign_in" });
     setLoading(true);
     setError(null);
     const { error } = await supabase.auth.signInWithOtp({

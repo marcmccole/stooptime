@@ -2,6 +2,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { getEvent, createRsvp, DbEvent } from "@/lib/db";
+import { track } from "@/lib/mixpanel";
 
 const VIBE_TITLES: Record<string, string> = {
   bbq: "Backyard BBQ", wine: "Wine on the Porch", cookout: "Block Cookout",
@@ -33,7 +34,10 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    getEvent(params.id).then(setEvent);
+    getEvent(params.id).then(e => {
+      setEvent(e);
+      track("RSVP Page Viewed", { event_id: params.id });
+    });
   }, [params.id]);
 
   const ready = name.trim().length > 0;
@@ -52,6 +56,7 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
       family_note: tenure.trim() || undefined,
     });
     sessionStorage.setItem("stoop_rsvp", JSON.stringify({ name, blockAddress, tenure, rsvpId }));
+    track("RSVP Submitted", { event_id: params.id, has_address: !!blockAddress.trim(), has_tenure: !!tenure.trim() });
     // Notify host — fire and forget
     fetch("/api/notify-rsvp", {
       method: "POST",

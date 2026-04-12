@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 
 const sizes = [
   {
@@ -43,7 +44,7 @@ export default function Step2() {
         {sizes.map(({ id, label, sublabel, desc, img }) => (
           <button
             key={id}
-            onClick={() => { savePartyState({ size: id }); router.push("/host/auth"); }}
+            onClick={() => { savePartyState({ size: id }); track("Party Size Selected", { size: id }); router.push("/host/auth"); }}
             className="option-card"
           >
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>

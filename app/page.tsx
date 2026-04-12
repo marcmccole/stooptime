@@ -1,3 +1,7 @@
+"use client";
+import { useEffect } from "react";
+import { track } from "@/lib/mixpanel";
+
 const howItWorksItems = [
   {
     img: "/flyers.png",
@@ -17,6 +21,8 @@ const howItWorksItems = [
 ];
 
 export default function Home() {
+  useEffect(() => { track("Landing Page Viewed"); }, []);
+
   return (
     <div style={{ fontFamily: "var(--font-plus-jakarta-sans), system-ui, sans-serif", color: "#1A1A1A", background: "#1A1A1A" }}>
       {/* Nav */}
@@ -75,7 +81,7 @@ export default function Home() {
           }}>
             Get everyone together on your street, steps or stoop.
           </p>
-          <a href="/host" className="btn-primary">
+          <a href="/host" className="btn-primary" onClick={() => track("Host CTA Clicked")}>
             Host a block party
           </a>
         </div>

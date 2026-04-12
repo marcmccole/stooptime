@@ -4,6 +4,7 @@ import ReactCrop, { type PercentCrop, centerCrop, makeAspectCrop } from "react-i
 import "react-image-crop/dist/ReactCrop.css";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
+import { track } from "@/lib/mixpanel";
 
 function centerSquareCrop(width: number, height: number): PercentCrop {
   return centerCrop(
@@ -202,7 +203,7 @@ export default function Step7() {
         <div style={{ marginTop: "auto" }}>
           <a
             href="/host/preview"
-            onClick={() => savePartyState({ photoDataUrl: preview })}
+            onClick={() => { savePartyState({ photoDataUrl: preview }); track(preview ? "Photo Uploaded" : "Photo Skipped"); }}
             className="btn-primary"
             style={{ display: "block", textAlign: "center" }}
           >
