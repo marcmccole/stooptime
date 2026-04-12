@@ -170,7 +170,13 @@ export default function Step1() {
         <div style={{ marginTop: "auto" }}>
           <a
             href={address.trim() ? "/host/size" : undefined}
-            onClick={() => { if (address.trim()) { savePartyState({ address }); track("Address Entered"); } }}
+            onClick={() => {
+            if (address.trim()) {
+              savePartyState({ address });
+              localStorage.removeItem("stoop_event_id");
+              track("Address Entered");
+            }
+          }}
             className="btn-primary"
             style={{
               display: "block", textAlign: "center",

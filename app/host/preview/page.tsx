@@ -107,7 +107,8 @@ export default function FlyerPreview() {
               date: dateStr,
               time: s.time,
             }),
-          }).catch(() => {});
+          }).then(r => { if (!r.ok) r.json().then(e => console.error("event-created-email failed:", e)); })
+            .catch(e => console.error("event-created-email fetch error:", e));
         }
       }
 
