@@ -12,7 +12,8 @@ import {
   claimTask as dbClaimTask, unclaimTask as dbUnclaimTask,
   cancelEvent as dbCancelEvent,
   uploadPhoto,
-  DbRsvp,
+  getMessages, sendMessage as dbSendMessage,
+  DbRsvp, DbMessage,
 } from "@/lib/db";
 
 // ── Types ─────────────────────────────────────────────────
@@ -324,8 +325,9 @@ export default function ManageEvent() {
   const [editWhyNote, setEditWhyNote] = useState("");
 
   // Message panel state
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<DbMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [sendingMessage, setSendingMessage] = useState(false);
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   const [dbPhotoUrl, setDbPhotoUrl] = useState<string | null>(null);
@@ -371,6 +373,8 @@ export default function ManageEvent() {
       });
       // Load RSVPs
       getRsvps(storedEventId).then(setDbRsvps);
+      // Load messages
+      getMessages(storedEventId).then(setMessages);
       // Load tasks from DB
       getTasks(storedEventId).then(dbTasks => {
         setTasks(dbTasks.map(t => ({
@@ -523,21 +527,35 @@ export default function ManageEvent() {
     setPanel(null);
   };
 
-  const sendMessage = () => {
-    if (!newMessage.trim()) return;
+  const sendMessage = async () => {
+    const text = newMessage.trim();
+    if (!text || sendingMessage || !eventId) return;
+    setSendingMessage(true);
     track("Message Sent", { context: "manage", is_host: true });
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    setMessages(prev => [...prev, {
-      id: nextId++,
-      author: party.yourName || "You",
-      initials: (party.yourName?.[0] || "Y").toUpperCase(),
-      color: "#E8521A",
-      text: newMessage.trim(),
-      time: timeStr,
-    }]);
+    const authorName = party.familyName?.trim()
+      ? `The ${party.familyName.trim()}s`
+      : party.yourName?.trim() || "Host";
+    // Optimistic
+    const optimistic: DbMessage = {
+      id: `temp-${Date.now()}`,
+      event_id: eventId,
+      author_name: authorName,
+      text,
+      created_at: new Date().toISOString(),
+    };
+    setMessages(prev => [...prev, optimistic]);
     setNewMessage("");
     messageInputRef.current?.focus();
+    const saved = await dbSendMessage(eventId, authorName, text);
+    if (saved) {
+      setMessages(prev => prev.map(m => m.id === optimistic.id ? saved : m));
+      fetch("/api/notify-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId, authorName, text }),
+      }).catch(() => {});
+    }
+    setSendingMessage(false);
   };
 
   const cancelEvent = async () => {
@@ -1182,23 +1200,27 @@ export default function ManageEvent() {
             </div>
           ) : (
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16, marginBottom: 20 }}>
-              {messages.map(msg => (
-                <div key={msg.id} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <Avatar text={msg.initials} color={msg.color} size={36} />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1A1A" }}>{msg.author}</span>
-                      <span style={{ fontSize: 12, color: "#CCCCCC" }}>{msg.time}</span>
-                    </div>
-                    <div style={{
-                      background: "#F9F6F3", borderRadius: "0 10px 10px 10px",
-                      padding: "10px 14px", fontSize: 14, color: "#1A1A1A", lineHeight: 1.5,
-                    }}>
-                      {msg.text}
+              {messages.map(msg => {
+                const ini = msg.author_name[0]?.toUpperCase() || "?";
+                const timeStr = new Date(msg.created_at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+                return (
+                  <div key={msg.id} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <Avatar text={ini} color="#E8521A" size={36} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: "#1A1A1A" }}>{msg.author_name}</span>
+                        <span style={{ fontSize: 12, color: "#CCCCCC" }}>{timeStr}</span>
+                      </div>
+                      <div style={{
+                        background: "#F9F6F3", borderRadius: "0 10px 10px 10px",
+                        padding: "10px 14px", fontSize: 14, color: "#1A1A1A", lineHeight: 1.5,
+                      }}>
+                        {msg.text}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -1217,14 +1239,14 @@ export default function ManageEvent() {
                 boxSizing: "border-box", lineHeight: 1.5, marginBottom: 10,
               }}
             />
-            <button onClick={sendMessage} disabled={!newMessage.trim()} style={{
+            <button onClick={sendMessage} disabled={!newMessage.trim() || sendingMessage} style={{
               width: "100%", padding: "13px", borderRadius: 50,
               background: newMessage.trim() ? "#E8521A" : "#E8E8E8",
               color: newMessage.trim() ? "white" : "#AAAAAA",
               border: "none", fontSize: 15, fontWeight: 600, cursor: newMessage.trim() ? "pointer" : "default",
               fontFamily: "inherit", transition: "background 0.15s",
             }}>
-              Post message
+              {sendingMessage ? "Posting…" : "Post message"}
             </button>
           </div>
         </div>

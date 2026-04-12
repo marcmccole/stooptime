@@ -119,6 +119,11 @@ export default function GuestEventPage({ params: paramsPromise }: { params: Prom
     const saved = await sendMessage(params.id, authorName, text);
     if (saved) {
       setMessages(prev => prev.map(m => m.id === optimistic.id ? saved : m));
+      fetch("/api/notify-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId: params.id, authorName, text }),
+      }).catch(() => {});
     }
     setSending(false);
   };
