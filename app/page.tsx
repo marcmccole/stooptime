@@ -301,6 +301,9 @@ export default function Home() {
               {link}
             </a>
           ))}
+          <a href="mailto:support@stooptime.com" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>
+            Support
+          </a>
         </div>
         <span style={{ fontSize: 12, color: "#999" }}>
           © 2026 Stoop Inc. All rights reserved.

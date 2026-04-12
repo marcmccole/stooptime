@@ -156,6 +156,12 @@ export default function Step3() {
         <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
           By continuing, you agree to our Terms of Service and Privacy Policy.
         </p>
+        <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+          Questions?{" "}
+          <a href="mailto:support@stooptime.com" style={{ color: "#AAAAAA", textDecoration: "none" }}>
+            support@stooptime.com
+          </a>
+        </p>
       </div>
     </StepLayout>
   );

@@ -249,6 +249,16 @@ export default function HomeSignedIn() {
         <p style={{ fontSize: 13, color: "#AAAAAA", margin: 0 }}>Bring your neighbors together</p>
       </div>
 
+      {/* Footer */}
+      <div style={{ padding: "0 20px 40px", textAlign: "center" }}>
+        <p style={{ fontSize: 12, color: "#CCCCCC", margin: 0 }}>
+          Questions?{" "}
+          <a href="mailto:support@stooptime.com" style={{ color: "#AAAAAA", textDecoration: "none" }}>
+            support@stooptime.com
+          </a>
+        </p>
+      </div>
+
     </div>
   );
 }

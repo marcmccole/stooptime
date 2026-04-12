@@ -178,6 +178,12 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
         <p style={{ fontSize: 13, color: "#BBBBBB", textAlign: "center" }}>
           You'll meet {hostName} on the day.
         </p>
+        <p style={{ fontSize: 12, color: "#DDDDDD", textAlign: "center", marginTop: 24 }}>
+          Questions?{" "}
+          <a href="mailto:support@stooptime.com" style={{ color: "#BBBBBB", textDecoration: "none" }}>
+            support@stooptime.com
+          </a>
+        </p>
       </div>
     </div>
   );
