@@ -1,0 +1,73 @@
+"use client";
+import { useRouter } from "next/navigation";
+import StepLayout from "@/components/onboarding/StepLayout";
+import { savePartyState } from "@/lib/party-state";
+
+const sizes = [
+  {
+    id: "intimate",
+    label: "Just the neighbors nearby",
+    sublabel: "Steps or yards · 5–10 families",
+    desc: "A relaxed hang with the houses closest to you. Low-key and easy.",
+    img: "/small_group.png",
+  },
+  {
+    id: "whole_block",
+    label: "The whole block",
+    sublabel: "Kerbside · 10–20 families",
+    desc: "Your whole street comes together. Tables out front, neighbours meeting for the first time.",
+    img: "/middle_group.png",
+  },
+  {
+    id: "street_closure",
+    label: "Close the street!",
+    sublabel: "Permit likely required · 20+ families",
+    desc: "Shut it down. Tables in the road, kids running free, music loud.",
+    img: "/large_group.png",
+  },
+];
+
+export default function Step2() {
+  const router = useRouter();
+
+  return (
+    <StepLayout step={2} backHref="/host">
+      <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
+        How big are you thinking?
+      </h1>
+      <p style={{ fontSize: 15, color: "#888", marginBottom: 28, lineHeight: 1.6 }}>
+        Don't worry, you can always adjust later. We just want to help you set the right mood.
+      </p>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+        {sizes.map(({ id, label, sublabel, desc, img }) => (
+          <button
+            key={id}
+            onClick={() => { savePartyState({ size: id }); router.push("/host/auth"); }}
+            className="option-card"
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div style={{
+                width: 88, height: 72, flexShrink: 0, borderRadius: 8,
+                background: "#FFFFFF", overflow: "hidden",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <img
+                  src={img}
+                  alt={label}
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                />
+              </div>
+              <div style={{ textAlign: "left" }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#1A1A1A", marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 12, color: "#E8521A", fontWeight: 600, marginBottom: 4 }}>{sublabel}</div>
+                <div style={{ fontSize: 13, color: "#888", lineHeight: 1.45 }}>{desc}</div>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+    </StepLayout>
+  );
+}

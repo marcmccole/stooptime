@@ -1,26 +1,318 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #E8521A;
+  --color-primary-dark: #C8401A;
+  --color-primary-light: #FDF0E8;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-border: #E8E8E8;
+  --color-background: #FFFFFF;
+  --color-background-secondary: #F9F6F3;
+  --color-success: #3B6D11;
+  --color-success-light: #EAF3DE;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-text-primary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+}
+
+/* Responsive layout */
+.flyer-section-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.flyer-card {
+  background: #FFFFFF;
+  border: 0.5px solid #E8E8E8;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.flyer-card-photo {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.flyer-copy {
+  display: block;
+}
+
+.how-it-works-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.how-it-works-heading-desktop {
+  display: block;
+}
+
+.how-it-works-heading-mobile {
+  display: none;
+}
+
+.footer-links {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .flyer-section-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .flyer-card {
+    width: 100%;
+  }
+
+  .flyer-card-photo {
+    width: 100%;
+    height: 220px;
+  }
+
+  .flyer-copy {
+    display: none;
+  }
+
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 400px;
+  }
+
+  .how-it-works-heading-desktop {
+    display: none;
+  }
+
+  .how-it-works-heading-mobile {
+    display: block;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+/* ── Wizard shell ── */
+.wizard-page {
+  min-height: 100dvh;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 20px 48px;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ── Selectable cards (Steps 2 & 5) ── */
+.option-card {
+  background: #fff;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  width: 100%;
+}
+.option-card:hover {
+  border-color: #F5B898;
+  background: #FFF9F6;
+}
+.option-card.selected {
+  border-color: #E8521A;
+  background: #FDF0E8;
+}
+
+/* ── Vibe grid (Step 5) ── */
+.vibe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 560px) {
+  .vibe-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Calendar (Step 4) ── */
+.cal-day {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+  margin: 0 auto;
+}
+.cal-day:hover:not(.cal-day-empty):not(.cal-day-past) {
+  background: #FDF0E8;
+}
+.cal-day-weekend { color: #E8521A; }
+.cal-day-selected { background: #E8521A !important; color: #fff; font-weight: 700; }
+.cal-day-today { font-weight: 700; }
+.cal-day-past { color: #CCCCCC; cursor: default; }
+.cal-day-empty { cursor: default; }
+
+@media (min-width: 480px) {
+  .cal-day { width: 44px; height: 44px; font-size: 15px; }
+}
+
+/* ── Photo upload circle (Step 7) ── */
+.photo-upload-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2.5px dashed #E8521A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.15s;
+  margin: 0 auto;
+}
+.photo-upload-circle:hover,
+.photo-upload-circle.drag-over {
+  background: #FDF0E8;
+}
+@media (min-width: 560px) {
+  .photo-upload-circle { width: 280px; height: 280px; }
+}
+
+/* ── Inputs + textareas ── */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #E8521A !important;
+}
+
+/* ── Skeleton loader ── */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.skeleton {
+  background: #E8E8E8;
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.landing-nav-safe {
+  padding-top: 20px;
+  padding-top: max(env(safe-area-inset-top), 20px);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #E8521A;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-primary:hover {
+  background: #C8401A;
+}
+
+.print-invited {
+  display: none;
+}
+
+/* ── Print styles ── */
+@media print {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+
+  /* Neutralize Sheet fixed positioning so visibility approach works */
+  .sheet-overlay {
+    position: static !important;
+    background: none !important;
+    display: block !important;
+  }
+  .sheet-content {
+    position: static !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  /* Hide everything, then reveal only the card */
+  body * {
+    visibility: hidden !important;
+  }
+  .print-flyer,
+  .print-flyer * {
+    visibility: visible !important;
+  }
+
+  .print-container {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    visibility: visible !important;
+  }
+
+  .print-invited {
+    display: block !important;
+    visibility: visible !important;
+    text-align: center !important;
+    color: #E8521A !important;
+    font-size: 20px !important;
+    font-style: italic !important;
+    font-family: Georgia, serif !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .print-flyer {
+    width: 340px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1px solid #E8E8E8 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    visibility: visible !important;
+  }
 }
