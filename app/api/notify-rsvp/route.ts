@@ -103,9 +103,15 @@ export async function POST(req: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background:#E8521A;padding:28px 32px;text-align:center;">
-              <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.1em;text-transform:uppercase;">Stoop</p>
-              <p style="margin:0;font-size:26px;font-weight:800;color:white;line-height:1.2;">A neighbor RSVP&rsquo;d! 🎉</p>
+            <td style="padding:32px 40px 0;">
+              <span style="font-size:20px;font-weight:800;color:#E8521A;letter-spacing:-0.5px;">Stoop</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 40px 0;">
+              <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:36px;font-weight:700;color:#1A1A1A;line-height:1.1;letter-spacing:-0.5px;">
+                A neighbor<br />RSVP&rsquo;d! 🎉
+              </h1>
             </td>
           </tr>
 
