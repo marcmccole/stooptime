@@ -29,6 +29,7 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
   const router = useRouter();
   const [event, setEvent] = useState<DbEvent | null>(null);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [blockAddress, setBlockAddress] = useState("");
   const [tenure, setTenure] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -40,7 +41,8 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
     });
   }, [params.id]);
 
-  const ready = name.trim().length > 0;
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const ready = name.trim().length > 0 && emailValid;
 
   const submit = async () => {
     if (!ready || submitting) return;
@@ -48,6 +50,7 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
     const rsvpId = await createRsvp({
       event_id: params.id,
       family_name: name,
+      email: email.trim(),
       guest_count: 1,
       has_partner: false,
       has_kids: false,
@@ -55,7 +58,7 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
       has_dog: false,
       family_note: tenure.trim() || undefined,
     });
-    sessionStorage.setItem("stoop_rsvp", JSON.stringify({ name, blockAddress, tenure, rsvpId }));
+    sessionStorage.setItem("stoop_rsvp", JSON.stringify({ name, email: email.trim(), blockAddress, tenure, rsvpId }));
     track("RSVP Submitted", { event_id: params.id, has_address: !!blockAddress.trim(), has_tenure: !!tenure.trim() });
     // Notify host — fire and forget
     fetch("/api/notify-rsvp", {
@@ -112,7 +115,7 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
           Let your neighbors know you're coming.
         </h1>
         <p style={{ fontSize: 15, color: "#888", marginBottom: 28, lineHeight: 1.6 }}>
-          No login required. Just your name.
+          We'll send you a link to see who else is coming and claim a task.
         </p>
 
         {/* Name */}
@@ -123,6 +126,18 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
             placeholder="The Robinsons"
             value={name}
             onChange={e => setName(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+
+        {/* Email */}
+        <div style={{ marginBottom: 16 }}>
+          <label style={labelStyle}>Email</label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             style={inputStyle}
           />
         </div>
