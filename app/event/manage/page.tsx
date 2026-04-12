@@ -331,6 +331,7 @@ export default function ManageEvent() {
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   const [dbPhotoUrl, setDbPhotoUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   // Photo edit
   const [rawPhotoSrc, setRawPhotoSrc] = useState<string | null>(null);
@@ -1051,12 +1052,36 @@ export default function ManageEvent() {
         <div style={{ padding: "16px 20px 40px" }}>
           <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
             <h2 style={{ fontSize: 20, fontWeight: 700, color: "#1A1A1A", margin: 0 }}>Your flyer</h2>
-            <button onClick={() => { track("Flyer Printed", { context: "manage" }); window.print(); }} style={{
-              background: "#E8521A", color: "white", border: "none", borderRadius: 50,
-              padding: "9px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
-            }}>
-              Print flyers
-            </button>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                onClick={async () => {
+                  const rsvpUrl = `${window.location.origin}/rsvp/${eventId}`;
+                  track("Share Link Tapped", { context: "manage" });
+                  if (navigator.share) {
+                    await navigator.share({ title: "You're invited!", url: rsvpUrl }).catch(() => {});
+                  } else {
+                    await navigator.clipboard.writeText(rsvpUrl);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }
+                }}
+                disabled={!eventId}
+                style={{
+                  background: "white", color: "#E8521A", border: "1.5px solid #E8521A",
+                  borderRadius: 50, padding: "9px 16px", fontSize: 14, fontWeight: 600,
+                  cursor: eventId ? "pointer" : "default", fontFamily: "inherit",
+                  opacity: eventId ? 1 : 0.4,
+                }}
+              >
+                {copied ? "Copied!" : "Share link"}
+              </button>
+              <button onClick={() => { track("Flyer Printed", { context: "manage" }); window.print(); }} style={{
+                background: "#E8521A", color: "white", border: "none", borderRadius: 50,
+                padding: "9px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
+              }}>
+                Print
+              </button>
+            </div>
           </div>
 
           {/* Flyer card — baseball card proportions, centered */}
