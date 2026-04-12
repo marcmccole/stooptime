@@ -5,8 +5,8 @@ let initialized = false;
 function init() {
   if (initialized || typeof window === "undefined") return;
   const token = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
-  if (!token) { console.warn("[Mixpanel] NEXT_PUBLIC_MIXPANEL_TOKEN is not set"); return; }
-  mixpanel.init(token, { persistence: "localStorage", ignore_dnt: true, debug: true });
+  if (!token) return;
+  mixpanel.init(token, { persistence: "localStorage", ignore_dnt: true });
   initialized = true;
 }
 
