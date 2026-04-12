@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase";
-import { getEventsByHost, getRsvpCount, DbEvent } from "@/lib/db";
+import { getEventsByHost, getRsvpCount, getRsvpsByUser, DbEvent, DbRsvpWithEvent } from "@/lib/db";
 import { track, identify } from "@/lib/mixpanel";
 
 const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -46,6 +46,7 @@ function isUpcoming(event: DbEvent) {
 export default function HomeSignedIn() {
   const [events, setEvents] = useState<DbEvent[]>([]);
   const [rsvpCounts, setRsvpCounts] = useState<Record<string, number>>({});
+  const [attendingRsvps, setAttendingRsvps] = useState<DbRsvpWithEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -55,8 +56,14 @@ export default function HomeSignedIn() {
       if (!user) { window.location.href = "/"; return; }
       identify(user.id, { $email: user.email, $name: user.user_metadata?.full_name ?? "" });
       track("Home Viewed");
-      const evts = await getEventsByHost(user.id);
+      const [evts, attending] = await Promise.all([
+        getEventsByHost(user.id),
+        getRsvpsByUser(user.id),
+      ]);
       setEvents(evts);
+      // Filter attending to exclude events the user is also hosting
+      const hostingIds = new Set(evts.map(e => e.id));
+      setAttendingRsvps(attending.filter(r => !hostingIds.has(r.event_id)));
       const counts: Record<string, number> = {};
       await Promise.all(evts.map(async e => {
         counts[e.id] = await getRsvpCount(e.id);
@@ -126,7 +133,7 @@ export default function HomeSignedIn() {
 
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "#BBBBBB", fontSize: 14 }}>Loading…</div>
-        ) : events.length === 0 ? (
+        ) : events.length === 0 && attendingRsvps.length === 0 ? (
           <>
             <h2 style={{ fontSize: 28, fontWeight: 800, color: "#1A1A1A", marginBottom: 20, lineHeight: 1.15 }}>
               Welcome to Stoop.
@@ -228,6 +235,54 @@ export default function HomeSignedIn() {
                           <polyline points="9 18 15 12 9 6"/>
                         </svg>
                       </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+
+            {/* Attending section */}
+            {attendingRsvps.length > 0 && (
+              <>
+                <h2 style={{ fontSize: 22, fontWeight: 800, color: "#1A1A1A", marginBottom: 16, lineHeight: 1.2 }}>
+                  Parties you're attending
+                </h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 40 }}>
+                  {attendingRsvps.map(rsvp => {
+                    const event = rsvp.events;
+                    const title = buildTitle(event);
+                    const dateStr = event.event_date ? formatEventDate(event.event_date, event.event_time || "14:00") : null;
+                    const upcoming = isUpcoming(event);
+                    return (
+                      <a
+                        key={rsvp.id}
+                        href={`/event/${rsvp.event_id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div style={{ background: "#FFFFFF", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+                          <div className="skeleton" style={{ height: 120, overflow: "hidden", position: "relative" }}>
+                            {event.photo_url ? (
+                              <img src={event.photo_url} alt="Event" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }} onLoad={e => (e.currentTarget.parentElement as HTMLElement)?.classList.remove("skeleton")} />
+                            ) : (
+                              <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, #FDF0E8 0%, #F5E0D0 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40 }}>
+                                {VIBE_EMOJI[event.vibe || ""] || "🎉"}
+                              </div>
+                            )}
+                            <div style={{
+                              position: "absolute", bottom: 10, left: 12,
+                              background: "rgba(255,255,255,0.92)", backdropFilter: "blur(4px)",
+                              borderRadius: 6, padding: "3px 8px",
+                              fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", color: "#3B6D11", textTransform: "uppercase",
+                            }}>
+                              {upcoming ? "Attending" : "Attended"}
+                            </div>
+                          </div>
+                          <div style={{ padding: "14px 16px 16px" }}>
+                            <h3 style={{ fontSize: 17, fontWeight: 700, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 4 }}>{title}</h3>
+                            {dateStr && <p style={{ fontSize: 13, color: "#999", margin: 0 }}>{dateStr}</p>}
+                          </div>
+                        </div>
+                      </a>
                     );
                   })}
                 </div>

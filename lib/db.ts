@@ -23,6 +23,7 @@ export interface DbEvent {
 export interface DbRsvp {
   id: string;
   event_id: string;
+  user_id: string | null;
   family_name: string | null;
   email: string | null;
   phone: string | null;
@@ -35,6 +36,10 @@ export interface DbRsvp {
   photo_url: string | null;
   status: string;
   created_at: string;
+}
+
+export interface DbRsvpWithEvent extends DbRsvp {
+  events: DbEvent;
 }
 
 export interface DbTask {
@@ -291,6 +296,21 @@ export async function createRsvp(payload: RsvpPayload): Promise<string | null> {
 
 export async function updateRsvpPhoto(rsvpId: string, photoUrl: string): Promise<void> {
   await supabase.from("rsvps").update({ photo_url: photoUrl }).eq("id", rsvpId);
+}
+
+export async function updateRsvpUser(rsvpId: string, userId: string): Promise<void> {
+  await supabase.from("rsvps").update({ user_id: userId }).eq("id", rsvpId);
+}
+
+export async function getRsvpsByUser(userId: string): Promise<DbRsvpWithEvent[]> {
+  const { data, error } = await supabase
+    .from("rsvps")
+    .select("*, events(*)")
+    .eq("user_id", userId)
+    .eq("status", "going")
+    .order("created_at", { ascending: false });
+  if (error) { console.error("getRsvpsByUser error:", error); return []; }
+  return data as DbRsvpWithEvent[];
 }
 
 export async function updateRsvpNote(rsvpId: string, note: string): Promise<void> {

@@ -1,7 +1,9 @@
 "use client";
 import { useState, useRef, useCallback, use } from "react";
 import { useRouter } from "next/navigation";
-import { uploadPhoto, updateRsvpPhoto, updateRsvpHousehold } from "@/lib/db";
+import { useEffect } from "react";
+import { uploadPhoto, updateRsvpPhoto, updateRsvpHousehold, updateRsvpUser } from "@/lib/db";
+import { supabase } from "@/lib/supabase";
 
 type AgeRange = "baby" | "toddler" | "elementary" | "teen";
 type PetType = "big dog" | "small dog" | "very opinionated dog" | "cat" | "other";
@@ -39,6 +41,15 @@ export default function RSVPProfile({ params: paramsPromise }: { params: Promise
 
   const rsvpRaw = typeof window !== "undefined" ? sessionStorage.getItem("stoop_rsvp") : null;
   const rsvp = rsvpRaw ? JSON.parse(rsvpRaw) : {};
+
+  // Link authenticated user to their RSVP record
+  useEffect(() => {
+    const rsvpId = JSON.parse(sessionStorage.getItem("stoop_rsvp") || "{}").rsvpId;
+    if (!rsvpId) return;
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) updateRsvpUser(rsvpId, data.user.id);
+    });
+  }, []);
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith("image/")) return;
