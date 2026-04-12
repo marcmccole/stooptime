@@ -6,6 +6,7 @@ import { PartyState } from "./party-state";
 export interface DbEvent {
   id: string;
   host_id: string;
+  host_email: string | null;
   vibe: string | null;
   size: string | null;
   address: string | null;
@@ -170,7 +171,8 @@ export async function saveEvent(
   party: Partial<PartyState>,
   userId: string,
   eventId?: string | null,
-  photoUrl?: string | null
+  photoUrl?: string | null,
+  hostEmail?: string | null
 ): Promise<string | null> {
   // Convert stored date object to ISO date string
   let dateStr: string | null = null;
@@ -191,6 +193,7 @@ export async function saveEvent(
     family_note: party.familyNote ?? null,
     why_note: party.whyNote ?? null,
     ...(photoUrl !== undefined ? { photo_url: photoUrl } : {}),
+    ...(hostEmail ? { host_email: hostEmail } : {}),
     status: "active",
   };
 

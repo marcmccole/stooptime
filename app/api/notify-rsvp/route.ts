@@ -50,12 +50,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Event not found" }, { status: 404 });
   }
 
-  // Fetch host email via auth admin
-  const { data: userData, error: userError } = await adminSupabase.auth.admin.getUserById(event.host_id);
-  const hostEmail = userData?.user?.email;
+  const hostEmail = event.host_email;
 
-  if (userError || !hostEmail) {
-    console.error("notify-rsvp: host email not found", userError);
+  if (!hostEmail) {
+    console.error("notify-rsvp: host_email missing on event", eventId);
     return NextResponse.json({ error: "Host email not found" }, { status: 404 });
   }
 

@@ -83,7 +83,7 @@ export default function FlyerPreview() {
       const existingEventId = localStorage.getItem("stoop_event_id");
 
       // 1. Save event first (without photo) so we get the ID immediately
-      const id = await saveEvent(s, user.id, existingEventId, undefined);
+      const id = await saveEvent(s, user.id, existingEventId, undefined, user.email);
       if (!id) { console.error("saveEvent returned null"); return; }
 
       // 2. Seed tasks if this is a brand-new event
