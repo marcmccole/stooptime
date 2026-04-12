@@ -599,14 +599,12 @@ export default function ManageEvent() {
       {/* Family photo */}
       <div style={{ maxWidth: 480, margin: "0 auto", padding: "0 20px 20px" }}>
         <div className="skeleton" style={{ borderRadius: 14, overflow: "hidden", height: 200, position: "relative" }}>
-          {dbPhotoUrl && (
-            <img
-              src={dbPhotoUrl}
-              alt="Family photo"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }}
-              onLoad={e => (e.currentTarget.parentElement as HTMLElement)?.classList.remove("skeleton")}
-            />
-          )}
+          <img
+            src={photo}
+            alt="Family photo"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }}
+            onLoad={e => (e.currentTarget.parentElement as HTMLElement)?.classList.remove("skeleton")}
+          />
           {/* Edit photo label — label+input is more reliable than programmatic click on mobile */}
           <label
             htmlFor="manage-photo-input"
