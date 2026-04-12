@@ -66,6 +66,12 @@ export default function RSVPPage({ params: paramsPromise }: { params: Promise<{ 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ eventId: params.id, guestName: name, guestNote: tenure.trim() || null }),
     }).catch(() => {});
+    // Confirm to guest — fire and forget
+    fetch("/api/rsvp-confirmation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ eventId: params.id, guestEmail: email.trim(), guestName: name }),
+    }).catch(() => {});
     router.push(`/rsvp/${params.id}/auth`);
   };
 
