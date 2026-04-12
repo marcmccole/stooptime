@@ -24,7 +24,7 @@ export default function Step4() {
   const today = new Date();
   const isStreetClosure = getPartyState().size === "street_closure";
   const minDate = new Date();
-  if (isStreetClosure) minDate.setDate(minDate.getDate() + 30);
+  minDate.setDate(minDate.getDate() + (isStreetClosure ? 30 : 5));
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
