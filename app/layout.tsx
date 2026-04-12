@@ -11,6 +11,18 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Stoop — Meet your neighbors",
   description: "Host a block party and meet the people on your street.",
+  openGraph: {
+    title: "Stoop — Meet your neighbors",
+    description: "Host a block party and meet the people on your street.",
+    url: "https://stooptime.com",
+    siteName: "Stoop",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Stoop — Meet your neighbors",
+    description: "Host a block party and meet the people on your street.",
+  },
 };
 
 export const viewport: Viewport = {
