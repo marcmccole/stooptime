@@ -5,7 +5,18 @@ export const alt = "Stoop — Meet your neighbors";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  // Fetch Plus Jakarta Sans ExtraBold from Google Fonts at runtime
+  const fontRes = await fetch(
+    "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800",
+    { headers: { "User-Agent": "Mozilla/5.0" } }
+  );
+  const css = await fontRes.text();
+  const fontUrl = css.match(/url\((https:\/\/[^)]+)\)/)?.[1];
+  const fontData = fontUrl
+    ? await fetch(fontUrl).then((r) => r.arrayBuffer())
+    : null;
+
   return new ImageResponse(
     (
       <div
@@ -16,15 +27,15 @@ export default function Image() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Georgia, serif",
+          fontFamily: '"Plus Jakarta Sans"',
         }}
       >
         <div
           style={{
-            fontSize: 120,
-            fontWeight: 700,
+            fontSize: 140,
+            fontWeight: 800,
             color: "#FFFFFF",
-            letterSpacing: "-3px",
+            letterSpacing: "-4px",
             display: "flex",
           }}
         >
@@ -32,6 +43,11 @@ export default function Image() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: fontData
+        ? [{ name: "Plus Jakarta Sans", data: fontData, weight: 800 }]
+        : [],
+    }
   );
 }
