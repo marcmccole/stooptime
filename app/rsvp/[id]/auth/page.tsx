@@ -150,6 +150,11 @@ export default function RSVPAuth({ params: paramsPromise }: { params: Promise<{ 
           </div>
         )}
 
+        {/* Sign up prompt */}
+        <p style={{ fontSize: 13, fontWeight: 700, color: "#AAAAAA", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
+          Sign up to continue
+        </p>
+
         {/* Magic link */}
         <div style={{ marginBottom: 14 }}>
           <label style={{
