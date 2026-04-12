@@ -81,8 +81,7 @@ export async function POST(req: NextRequest) {
                 &copy; 2026 Stoop Editorial. All rights reserved.
               </p>
               <p style="margin:0 0 16px;text-align:center;">
-                <a href="#" style="font-size:12px;color:#888888;text-decoration:none;margin:0 8px;">Unsubscribe</a>
-                <a href="#" style="font-size:12px;color:#888888;text-decoration:none;margin:0 8px;">Privacy Policy</a>
+                <a href="https://stooptime.com/privacy" style="font-size:12px;color:#888888;text-decoration:none;margin:0 8px;">Privacy Policy</a>
                 <a href="mailto:support@stooptime.com" style="font-size:12px;color:#888888;text-decoration:none;margin:0 8px;">Contact Support</a>
               </p>
               <p style="margin:0;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.2em;color:#BBBBBB;text-transform:uppercase;">

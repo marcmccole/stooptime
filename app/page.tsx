@@ -296,14 +296,8 @@ export default function Home() {
       }}>
         <img src="/stoop.svg" alt="Stoop" style={{ height: 24 }} />
         <div className="footer-links">
-          {["Safety Guidelines", "Privacy"].map((link) => (
-            <a key={link} href="#" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>
-              {link}
-            </a>
-          ))}
-          <a href="mailto:support@stooptime.com" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>
-            Support
-          </a>
+          <a href="/privacy" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>Privacy</a>
+          <a href="mailto:support@stooptime.com" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>Support</a>
         </div>
         <span style={{ fontSize: 12, color: "#999" }}>
           © 2026 Stoop Inc. All rights reserved.

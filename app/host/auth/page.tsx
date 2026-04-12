@@ -154,7 +154,8 @@ export default function Step3() {
         </form>
 
         <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          By continuing, you agree to our{" "}
+          <a href="/privacy" style={{ color: "#CCCCCC" }}>Privacy Policy</a>.
         </p>
         <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
           Questions?{" "}
