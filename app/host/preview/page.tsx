@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { getPartyState, savePartyState, PartyState } from "@/lib/party-state";
 import { supabase } from "@/lib/supabase";
@@ -59,6 +60,7 @@ function buildHostLine(state: Partial<PartyState>): string {
 }
 
 export default function FlyerPreview() {
+  const router = useRouter();
   const [state, setState] = useState<Partial<PartyState>>({});
   const [editingNote, setEditingNote] = useState(false);
   const [note, setNote] = useState("");
@@ -77,7 +79,7 @@ export default function FlyerPreview() {
 
   async function initEvent(s: Partial<PartyState>) {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) { router.replace("/host/auth"); return; }
 
     setSaving(true);
     try {

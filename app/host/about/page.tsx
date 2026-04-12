@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
 import { track } from "@/lib/mixpanel";
@@ -29,8 +30,15 @@ const PET_TYPES: { value: PetType; label: string }[] = [
 let nextId = 1;
 
 export default function Step6() {
+  const router = useRouter();
   const [yourName, setYourName] = useState("");
   const [familyName, setFamilyName] = useState("");
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) { router.replace("/host/auth"); return; }
+    });
+  }, [router]);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {

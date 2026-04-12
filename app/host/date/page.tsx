@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState, getPartyState } from "@/lib/party-state";
 import { track } from "@/lib/mixpanel";
+import { supabase } from "@/lib/supabase";
 
 const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -21,6 +23,13 @@ function getCalendarCells(year: number, month: number) {
 }
 
 export default function Step4() {
+  const router = useRouter();
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) router.replace("/host/auth");
+    });
+  }, [router]);
+
   const today = new Date();
   const isStreetClosure = getPartyState().size === "street_closure";
   const minDate = new Date();

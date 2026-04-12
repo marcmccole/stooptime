@@ -1,8 +1,10 @@
 "use client";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
 import { track } from "@/lib/mixpanel";
+import { supabase } from "@/lib/supabase";
 
 const vibes = [
   { id: "bbq",       label: "Backyard BBQ",        emoji: "🔥" },
@@ -18,6 +20,12 @@ const vibes = [
 
 export default function Step5() {
   const router = useRouter();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) router.replace("/host/auth");
+    });
+  }, [router]);
 
   return (
     <StepLayout step={5} backHref="/host/date">

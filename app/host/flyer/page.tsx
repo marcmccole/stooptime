@@ -1,10 +1,12 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ReactCrop, { type PercentCrop, centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import StepLayout from "@/components/onboarding/StepLayout";
 import { savePartyState } from "@/lib/party-state";
 import { track } from "@/lib/mixpanel";
+import { supabase } from "@/lib/supabase";
 
 function centerSquareCrop(width: number, height: number): PercentCrop {
   return centerCrop(
@@ -34,6 +36,13 @@ function getCroppedDataUrl(img: HTMLImageElement, crop: PercentCrop): string {
 }
 
 export default function Step7() {
+  const router = useRouter();
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) router.replace("/host/auth");
+    });
+  }, [router]);
+
   const [rawSrc, setRawSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState<PercentCrop>();
   const [preview, setPreview] = useState<string | null>(null);
