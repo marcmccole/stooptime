@@ -66,6 +66,7 @@ export default function FlyerPreview() {
   const [titleDraft, setTitleDraft] = useState("");
   const [eventId, setEventId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const s = getPartyState();
@@ -362,17 +363,43 @@ export default function FlyerPreview() {
 
       {/* Actions */}
       <div className="no-print" style={{ maxWidth: 480, margin: "0 auto", padding: "0 20px 16px" }}>
-        <button
-          onClick={() => { track("Flyer Printed", { context: "preview" }); window.print(); }}
-          style={{
-            width: "100%", padding: "15px 20px", borderRadius: 50,
-            background: "#E8521A", color: "white", border: "none",
-            fontSize: 16, fontWeight: 600, cursor: "pointer",
-            fontFamily: "inherit", marginBottom: 10,
-          }}
-        >
-          Print flyers
-        </button>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
+          <button
+            onClick={() => { track("Flyer Printed", { context: "preview" }); window.print(); }}
+            style={{
+              padding: "15px 12px", borderRadius: 50,
+              background: "#E8521A", color: "white", border: "none",
+              fontSize: 15, fontWeight: 600, cursor: "pointer",
+              fontFamily: "inherit",
+            }}
+          >
+            Print flyers
+          </button>
+          <button
+            onClick={async () => {
+              const rsvpUrl = `${window.location.origin}/rsvp/${eventId}`;
+              track("Share Link Tapped", { context: "preview" });
+              if (navigator.share) {
+                await navigator.share({ title: "You're invited!", url: rsvpUrl }).catch(() => {});
+              } else {
+                await navigator.clipboard.writeText(rsvpUrl);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }
+            }}
+            disabled={!eventId}
+            style={{
+              padding: "15px 12px", borderRadius: 50,
+              background: "white", color: "#E8521A",
+              border: "1.5px solid #E8521A",
+              fontSize: 15, fontWeight: 600,
+              cursor: eventId ? "pointer" : "default",
+              fontFamily: "inherit", opacity: eventId ? 1 : 0.4,
+            }}
+          >
+            {copied ? "Copied!" : "Share link"}
+          </button>
+        </div>
         <a href="/event/manage" style={{
           display: "block", width: "100%", padding: "14px 20px", borderRadius: 50,
           border: "1.5px solid #E8E8E8", background: "white",
