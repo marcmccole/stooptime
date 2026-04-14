@@ -84,6 +84,24 @@ export default function Home() {
           <a href="/host" className="btn-primary" onClick={() => track("Host CTA Clicked")}>
             Host a block party
           </a>
+          <a
+            href="/interest"
+            onClick={() => track("Interest CTA Clicked")}
+            style={{
+              display: "inline-block",
+              marginTop: 12,
+              padding: "13px 28px",
+              borderRadius: 50,
+              border: "1.5px solid rgba(255,255,255,0.5)",
+              color: "rgba(255,255,255,0.9)",
+              fontSize: 15,
+              fontWeight: 500,
+              textDecoration: "none",
+              transition: "border-color 0.2s, color 0.2s",
+            }}
+          >
+            I'm interested in my block
+          </a>
         </div>
       </section>
 
