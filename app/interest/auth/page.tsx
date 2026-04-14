@@ -24,11 +24,12 @@ export default function InterestAuth() {
     if (!email.trim()) return;
     setLoading(true);
     setError(null);
-    localStorage.setItem("stoop_interest_email", email.trim());
+    // Encode address + email into the redirect URL so they survive cross-browser magic link clicks
+    const next = `/interest/done?address=${encodeURIComponent(address)}&email=${encodeURIComponent(email.trim())}`;
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=%2Finterest%2Fdone`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
         data: { source: "interest" },
       },
     });

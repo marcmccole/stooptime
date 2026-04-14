@@ -9,13 +9,20 @@ export default function InterestDone() {
   useEffect(() => {
     track("Interest Registered");
 
-    // Save registration using session established by the magic link
+    const params = new URLSearchParams(window.location.search);
+    // URL params are the primary source — survive cross-browser magic link clicks
+    // localStorage is the fallback for same-browser flows
+    const address =
+      params.get("address") ||
+      localStorage.getItem("stoop_interest_address") ||
+      "";
+    const emailFromUrl = params.get("email") || localStorage.getItem("stoop_interest_email") || "";
+
     supabase.auth.getUser().then(async ({ data }) => {
       const user = data?.user;
-      const address = localStorage.getItem("stoop_interest_address");
-      const email = localStorage.getItem("stoop_interest_email") ?? user?.email ?? "";
+      const email = emailFromUrl || user?.email || "";
 
-      if (user && address && email && !saved) {
+      if (user && address && email) {
         await fetch("/api/interest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
