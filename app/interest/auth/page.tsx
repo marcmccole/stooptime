@@ -85,7 +85,7 @@ export default function InterestAuth() {
           What's your email?
         </h1>
         <p style={{ fontSize: 15, color: "#888", marginBottom: 32, lineHeight: 1.6 }}>
-          We'll send you a link to confirm your spot.
+          We'll notify you when neighbors nearby plan a party. Click the link we send to confirm it's you.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -116,7 +116,7 @@ export default function InterestAuth() {
               transition: "opacity 0.15s",
             }}
           >
-            {loading ? "Sending…" : "Send sign-in link"}
+            {loading ? "Sending…" : "Send link"}
           </button>
         </form>
 
