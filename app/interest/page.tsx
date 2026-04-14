@@ -140,7 +140,7 @@ export default function InterestAddress() {
             Where do you live?
           </h1>
           <p style={{ fontSize: 15, color: "#888", marginBottom: 32, lineHeight: 1.6 }}>
-            We'll let you know when neighbors nearby want to throw a block party.
+            We'll let you know when neighbors want to throw a block party.
           </p>
 
           <label style={{ fontSize: 13, fontWeight: 600, color: "#1A1A1A", marginBottom: 8, display: "block" }}>
