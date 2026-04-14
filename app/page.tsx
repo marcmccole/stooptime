@@ -90,12 +90,13 @@ export default function Home() {
             style={{
               display: "block",
               marginTop: 16,
-              color: "rgba(255,255,255,0.65)",
-              fontSize: 14,
-              textDecoration: "none",
+              color: "white",
+              fontSize: 15,
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
             }}
           >
-            Let me know if my neighbors add one
+            Notify me when my block has a party →
           </a>
         </div>
       </section>
