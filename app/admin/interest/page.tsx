@@ -1,45 +1,61 @@
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+"use client";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 interface InterestRow {
   id: string;
   email: string;
   address: string;
   neighborhood: string | null;
-  lat: number | null;
-  lng: number | null;
+  notified: boolean;
   created_at: string;
 }
 
-export const dynamic = "force-dynamic";
+export default function AdminInterestPage() {
+  const [status, setStatus] = useState<"loading" | "forbidden" | "ready">("loading");
+  const [rows, setRows] = useState<InterestRow[]>([]);
 
-export default async function AdminInterestPage() {
-  const { data, error } = await supabaseAdmin
-    .from("interest_registrations")
-    .select("*")
-    .order("created_at", { ascending: false });
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data }) => {
+      const token = data.session?.access_token;
+      if (!token) { setStatus("forbidden"); return; }
 
-  if (error) {
+      const res = await fetch("/api/admin/interest", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) { setStatus("forbidden"); return; }
+
+      const { data: rows } = await res.json();
+      setRows(rows ?? []);
+      setStatus("ready");
+    });
+  }, []);
+
+  if (status === "loading") {
     return (
-      <div style={{ padding: 40, fontFamily: "monospace" }}>
-        <p style={{ color: "red" }}>Error: {error.message}</p>
+      <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", color: "#999", fontSize: 15 }}>
+        Loading…
       </div>
     );
   }
 
-  const rows: InterestRow[] = data ?? [];
+  if (status === "forbidden") {
+    return (
+      <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16 }}>
+        <p style={{ fontSize: 15, color: "#666" }}>You don't have access to this page.</p>
+        <a href="/auth" style={{ fontSize: 14, color: "#E8521A", textDecoration: "none" }}>Sign in →</a>
+      </div>
+    );
+  }
 
-  // Group by neighborhood
   const byNeighborhood: Record<string, number> = {};
   for (const row of rows) {
     const key = row.neighborhood ?? "Unknown";
     byNeighborhood[key] = (byNeighborhood[key] ?? 0) + 1;
   }
   const neighborhoods = Object.entries(byNeighborhood).sort((a, b) => b[1] - a[1]);
+  const notifiedCount = rows.filter(r => r.notified).length;
 
   return (
     <div style={{
@@ -60,21 +76,20 @@ export default async function AdminInterestPage() {
       <div style={{ display: "flex", gap: 24, marginBottom: 48, flexWrap: "wrap" }}>
         <StatCard label="Total registrations" value={rows.length} />
         <StatCard label="Neighborhoods" value={neighborhoods.length} />
+        <StatCard label="Notified" value={notifiedCount} />
       </div>
 
       {/* By neighborhood */}
       {neighborhoods.length > 0 && (
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16, color: "#1A1A1A" }}>By neighborhood</h2>
+          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>By neighborhood</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {neighborhoods.map(([name, count]) => (
               <div key={name} style={{
                 display: "flex", alignItems: "center", gap: 12,
                 padding: "10px 16px", background: "#F9F6F3", borderRadius: 8,
               }}>
-                <div style={{
-                  flex: 1, height: 6, background: "#E8E8E8", borderRadius: 3, overflow: "hidden",
-                }}>
+                <div style={{ flex: 1, height: 6, background: "#E8E8E8", borderRadius: 3, overflow: "hidden" }}>
                   <div style={{
                     height: "100%", borderRadius: 3, background: "#E8521A",
                     width: `${Math.round((count / rows.length) * 100)}%`,
@@ -97,19 +112,22 @@ export default async function AdminInterestPage() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr style={{ borderBottom: "1.5px solid #E8E8E8" }}>
-                {["Email", "Address", "Neighborhood", "Date"].map(h => (
-                  <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#999", fontWeight: 600, whiteSpace: "nowrap" }}>
-                    {h}
-                  </th>
+                {["Email", "Address", "Neighborhood", "Notified", "Date"].map(h => (
+                  <th key={h} style={{ textAlign: "left", padding: "8px 12px", color: "#999", fontWeight: 600, whiteSpace: "nowrap" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {rows.map(row => (
                 <tr key={row.id} style={{ borderBottom: "0.5px solid #F0EEEB" }}>
-                  <td style={{ padding: "10px 12px", color: "#1A1A1A" }}>{row.email}</td>
-                  <td style={{ padding: "10px 12px", color: "#444", maxWidth: 280, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.address}</td>
+                  <td style={{ padding: "10px 12px" }}>{row.email}</td>
+                  <td style={{ padding: "10px 12px", color: "#444", maxWidth: 240, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.address}</td>
                   <td style={{ padding: "10px 12px", color: "#666" }}>{row.neighborhood ?? "—"}</td>
+                  <td style={{ padding: "10px 12px" }}>
+                    {row.notified
+                      ? <span style={{ color: "#3B6D11", fontWeight: 600 }}>✓ Yes</span>
+                      : <span style={{ color: "#AAAAAA" }}>No</span>}
+                  </td>
                   <td style={{ padding: "10px 12px", color: "#999", whiteSpace: "nowrap" }}>
                     {new Date(row.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                   </td>
@@ -125,10 +143,7 @@ export default async function AdminInterestPage() {
 
 function StatCard({ label, value }: { label: string; value: number }) {
   return (
-    <div style={{
-      background: "#F9F6F3", borderRadius: 12,
-      padding: "20px 28px", minWidth: 140,
-    }}>
+    <div style={{ background: "#F9F6F3", borderRadius: 12, padding: "20px 28px", minWidth: 140 }}>
       <div style={{ fontSize: 36, fontWeight: 700, color: "#E8521A", lineHeight: 1 }}>{value}</div>
       <div style={{ fontSize: 13, color: "#888", marginTop: 4 }}>{label}</div>
     </div>
