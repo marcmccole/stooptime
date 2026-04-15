@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   // Find registrations that are 23–25 hours old and haven't had a follow-up sent
   const { data: due, error } = await supabaseAdmin
     .from("interest_registrations")
-    .select("id, email, lat, lng, neighborhood")
+    .select("id, user_id, email, lat, lng, neighborhood")
     .eq("followup_sent", false)
     .not("lat", "is", null)
     .not("lng", "is", null)
