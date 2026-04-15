@@ -36,9 +36,28 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: true, sent: 0 });
   }
 
+  // Exclude anyone who has already hosted an event
+  const { data: hostedEvents } = await supabaseAdmin
+    .from("events")
+    .select("host_id")
+    .neq("status", "cancelled");
+
+  const hostUserIds = new Set(
+    (hostedEvents ?? []).map((e) => e.host_id).filter(Boolean)
+  );
+
   let sent = 0;
 
   for (const row of due) {
+    // Skip existing hosts — mark sent so we don't retry them
+    if (row.user_id && hostUserIds.has(row.user_id)) {
+      await supabaseAdmin
+        .from("interest_registrations")
+        .update({ followup_sent: true })
+        .eq("id", row.id);
+      continue;
+    }
+
     // Count all nearby interest registrations (including this person)
     const { data: nearby } = await supabaseAdmin.rpc("count_nearby_interests", {
       center_lat: row.lat,
