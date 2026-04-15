@@ -5,6 +5,7 @@ import InterestLayout from "@/components/interest/InterestLayout";
 import { track } from "@/lib/mixpanel";
 
 export default function InterestAuth() {
+  const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,8 +14,7 @@ export default function InterestAuth() {
   useEffect(() => {
     const saved = sessionStorage.getItem("stoop_interest_address");
     if (!saved) { window.location.href = "/interest"; return; }
-    // Move to localStorage so it survives the magic link redirect
-    localStorage.setItem("stoop_interest_address", saved);
+    setAddress(saved);
     sessionStorage.removeItem("stoop_interest_address");
     track("Interest Auth Viewed");
   }, []);

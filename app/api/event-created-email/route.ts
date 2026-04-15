@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const VIBE_LABELS: Record<string, string> = {
   bbq: "Backyard BBQ", wine: "Wine on the Porch", cookout: "Block Cookout",
@@ -26,6 +26,7 @@ function formatTime(timeStr: string) {
 }
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { email, eventId, vibe, familyName, address, date, time } = await req.json();
   if (!email || !eventId) return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
 

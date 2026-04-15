@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getClients() {
+  return {
+    supabaseAdmin: createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    ),
+    resend: new Resend(process.env.RESEND_API_KEY),
+  };
+}
 
 const NOTIFY_THRESHOLD = 3;
 const RADIUS_METERS = 1609; // 1 mile
@@ -45,6 +49,9 @@ async function geocodeAddress(address: string): Promise<{
 }
 
 async function sendNeighborhoodNotification(
+  resend: Resend,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabaseAdmin: SupabaseClient<any>,
   recipients: { id: string; email: string }[],
   totalCount: number,
   neighborhood: string | null
@@ -134,6 +141,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing address or email" }, { status: 400 });
   }
 
+  const { supabaseAdmin, resend } = getClients();
   const { lat, lng, neighborhood } = await geocodeAddress(address);
 
   const { data: inserted, error } = await supabaseAdmin
@@ -157,7 +165,7 @@ export async function POST(req: NextRequest) {
 
     if (nearby && nearby.length >= NOTIFY_THRESHOLD) {
       console.log(`Interest cluster hit: ${nearby.length} people within 1 mile — notifying`);
-      await sendNeighborhoodNotification(nearby, nearby.length, neighborhood);
+      await sendNeighborhoodNotification(resend, supabaseAdmin, nearby, nearby.length, neighborhood);
     }
   }
 

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const VIBE_LABELS: Record<string, string> = {
   bbq: "Backyard BBQ", wine: "Wine on the Porch", cookout: "Block Cookout",
@@ -11,6 +11,7 @@ const VIBE_LABELS: Record<string, string> = {
 };
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { eventId, authorName, text } = await req.json();
   if (!eventId || !authorName || !text) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
