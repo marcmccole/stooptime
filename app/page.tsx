@@ -114,7 +114,7 @@ export default function Home() {
         }}>
           Everybody needs good neighbors
         </p>
-        <h2 style={{
+        <h2 className="checklist-heading" style={{
           fontFamily: "var(--font-plus-jakarta-sans), system-ui, sans-serif",
           fontSize: 28,
           fontWeight: 800,
@@ -124,7 +124,7 @@ export default function Home() {
         }}>
           Turn strangers into neighbors
         </h2>
-        <p style={{ fontSize: 15, color: "#666", lineHeight: 1.7, marginBottom: 24 }}>
+        <p className="checklist-subhead" style={{ fontSize: 15, color: "#666", lineHeight: 1.7, marginBottom: 24 }}>
           You know the kind of neighborhood where everyone knows each other? This is how you build one.
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>

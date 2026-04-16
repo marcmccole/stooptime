@@ -105,6 +105,11 @@ body {
     padding-bottom: 24px !important;
   }
 
+  .checklist-heading,
+  .checklist-subhead {
+    text-align: center;
+  }
+
   .flyer-section-mobile-top {
     padding-top: 24px !important;
   }
