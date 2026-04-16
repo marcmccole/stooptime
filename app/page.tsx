@@ -156,6 +156,22 @@ export default function Home() {
         <div className="flyer-section-grid">
           {/* Flyer mockup */}
           <div className="flyer-card">
+            <div style={{
+              position: "absolute",
+              top: 10,
+              left: 10,
+              background: "rgba(240,240,240,0.92)",
+              color: "#999",
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              padding: "3px 8px",
+              borderRadius: 20,
+              zIndex: 2,
+            }}>
+              Example
+            </div>
             <div className="flyer-card-photo">
               <img
                 src="/oak_ridge_family.png"
