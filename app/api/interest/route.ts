@@ -80,7 +80,7 @@ async function sendSoloNotification(
 
         <tr><td style="padding:24px 40px 0;">
           <p style="margin:0 0 16px;font-size:16px;color:#1A1A1A;line-height:1.6;">
-            ${notifiedNeighborCount} ${neighborWord} near you in ${locationLabel} ${notifiedNeighborCount === 1 ? "has" : "have"} already expressed interest in a block party.
+            ${notifiedNeighborCount === 1 ? "Your neighbor wants" : `${notifiedNeighborCount} neighbors want`} to join a block party in ${locationLabel}.
           </p>
           <p style="margin:0 0 16px;font-size:15px;color:#555555;line-height:1.7;">
             All it takes is one person to make it happen. It could be you — and we'll help with everything.
@@ -119,7 +119,9 @@ async function sendSoloNotification(
   await resend.emails.send({
     from: "Stoop <hello@stooptime.com>",
     to: recipient.email,
-    subject: `${notifiedNeighborCount} ${neighborWord} near you want a block party`,
+    subject: notifiedNeighborCount === 1
+      ? "Your neighbor is interested in a block party, too"
+      : `${notifiedNeighborCount} neighbors are interested in a block party, too`,
     html,
   });
 
@@ -161,7 +163,7 @@ async function sendNeighborhoodNotification(
 
         <tr><td style="padding:24px 40px 0;">
           <p style="margin:0 0 16px;font-size:16px;color:#1A1A1A;line-height:1.6;">
-            ${neighborCount} ${neighborCount === 1 ? "neighbor" : "neighbors"} within a mile of you ${neighborCount === 1 ? "has" : "have"} also said they want a block party in ${locationLabel}.
+            ${neighborCount === 1 ? "Your neighbor wants" : `${neighborCount} neighbors want`} to join a block party in ${locationLabel}.
           </p>
           <p style="margin:0 0 16px;font-size:15px;color:#555555;line-height:1.7;">
             All it takes is one person to make it happen. It could be you — and we'll help with everything.
@@ -202,7 +204,9 @@ async function sendNeighborhoodNotification(
       resend.emails.send({
         from: "Stoop <hello@stooptime.com>",
         to: r.email,
-        subject: `${totalCount} neighbors near you want a block party`,
+        subject: neighborCount === 1
+          ? "Your neighbor is interested in a block party, too"
+          : `${neighborCount} neighbors are interested in a block party, too`,
         html,
       })
     )
