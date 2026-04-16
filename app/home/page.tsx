@@ -145,7 +145,7 @@ export default function HomeSignedIn() {
               <div style={{ fontSize: 40, marginBottom: 14 }}>🏘️</div>
               <div style={{ fontSize: 17, fontWeight: 700, color: "#1A1A1A", marginBottom: 8 }}>No events yet</div>
               <div style={{ fontSize: 14, color: "#AAAAAA", lineHeight: 1.7, maxWidth: 260, margin: "0 auto" }}>
-                Host a block party and your neighbors will show up here once they RSVP.
+                Start a block party and your neighbors will show up here once they RSVP.
               </div>
             </div>
           </>
@@ -299,7 +299,7 @@ export default function HomeSignedIn() {
           background: "#E8521A", color: "white", borderRadius: 50,
           fontSize: 16, fontWeight: 600, textAlign: "center", textDecoration: "none", marginBottom: 8,
         }}>
-          Host a block party
+          Start a block party
         </a>
         <p style={{ fontSize: 13, color: "#AAAAAA", margin: 0 }}>Bring your neighbors together</p>
       </div>

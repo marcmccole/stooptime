@@ -82,7 +82,7 @@ export default function Home() {
             Get everyone together on your street, steps or stoop.
           </p>
           <a href="/host" className="btn-primary" onClick={() => track("Host CTA Clicked")}>
-            Host a block party
+            Start a block party
           </a>
           <a
             href="/interest"
