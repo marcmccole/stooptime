@@ -103,6 +103,17 @@ export default function Home() {
 
       {/* Checklist — mobile only, appears between hero and card */}
       <section className="checklist-mobile" style={{ background: "#FFFFFF", padding: "48px 24px 40px" }}>
+        <p style={{
+          textAlign: "center",
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: "0.12em",
+          color: "#999999",
+          textTransform: "uppercase",
+          marginBottom: 32,
+        }}>
+          Everybody needs good neighbors
+        </p>
         <h2 style={{
           fontFamily: "var(--font-plus-jakarta-sans), system-ui, sans-serif",
           fontSize: 28,
@@ -130,7 +141,7 @@ export default function Home() {
 
       {/* Flyer section */}
       <section style={{ background: "#FFFFFF", padding: "72px 24px" }}>
-        <p style={{
+        <p className="flyer-eyebrow" style={{
           textAlign: "center",
           fontSize: 11,
           fontWeight: 600,

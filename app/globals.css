@@ -103,6 +103,10 @@ body {
     display: block;
   }
 
+  .flyer-eyebrow {
+    display: none;
+  }
+
   .how-it-works-grid {
     grid-template-columns: 1fr;
     gap: 32px;
