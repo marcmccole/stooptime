@@ -92,8 +92,9 @@ export default function Step1() {
                       color: "#AAAAAA", background: "#F0EEEB",
                       padding: "2px 7px", borderRadius: 50,
                       textTransform: "uppercase",
+                      textAlign: "center",
                     }}>
-                      Unlocks after your first party
+                      Unlocks after your 1st party
                     </span>
                   )}
                 </div>
