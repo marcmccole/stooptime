@@ -101,6 +101,11 @@ body {
 
   .checklist-mobile {
     display: block;
+    padding-bottom: 24px !important;
+  }
+
+  .flyer-section-mobile-top {
+    padding-top: 24px !important;
   }
 
   .flyer-eyebrow {

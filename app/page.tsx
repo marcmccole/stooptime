@@ -140,7 +140,7 @@ export default function Home() {
       </section>
 
       {/* Flyer section */}
-      <section style={{ background: "#FFFFFF", padding: "72px 24px" }}>
+      <section className="flyer-section-mobile-top" style={{ background: "#FFFFFF", padding: "72px 24px" }}>
         <p className="flyer-eyebrow" style={{
           textAlign: "center",
           fontSize: 11,
