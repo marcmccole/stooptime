@@ -56,6 +56,10 @@ body {
   display: block;
 }
 
+.checklist-mobile {
+  display: none;
+}
+
 .how-it-works-grid {
   max-width: 900px;
   margin: 0 auto;
@@ -93,6 +97,10 @@ body {
 
   .flyer-copy {
     display: none;
+  }
+
+  .checklist-mobile {
+    display: block;
   }
 
   .how-it-works-grid {

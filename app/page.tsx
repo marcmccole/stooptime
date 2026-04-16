@@ -101,6 +101,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Checklist — mobile only, appears between hero and card */}
+      <section className="checklist-mobile" style={{ background: "#FFFFFF", padding: "48px 24px 40px" }}>
+        <h2 style={{
+          fontFamily: "var(--font-plus-jakarta-sans), system-ui, sans-serif",
+          fontSize: 28,
+          fontWeight: 800,
+          color: "#1A1A1A",
+          lineHeight: 1.2,
+          marginBottom: 24,
+        }}>
+          Turn strangers into neighbors
+        </h2>
+        <p style={{ fontSize: 15, color: "#666", lineHeight: 1.7, marginBottom: 24 }}>
+          You know the kind of neighborhood where everyone knows each other? This is how you build one.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {["Someone to grab your mail when you're away", "A welcoming face when someone new moves in", "Kids who actually play outside together", "A street that looks out for each other"].map((item) => (
+            <div key={item} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#E8521A", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <span style={{ fontSize: 15, color: "#1A1A1A" }}>{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Flyer section */}
       <section style={{ background: "#FFFFFF", padding: "72px 24px" }}>
         <p style={{
