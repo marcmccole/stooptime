@@ -13,7 +13,7 @@ function getClients() {
 }
 
 const NOTIFY_THRESHOLD = 3;
-const RADIUS_METERS = 1609; // 1 mile
+const RADIUS_METERS = 805; // 0.5 miles
 
 async function geocodeAddress(address: string): Promise<{
   lat: number | null;

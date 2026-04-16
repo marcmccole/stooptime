@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
-const RADIUS_METERS = 1609;
+const RADIUS_METERS = 805; // 0.5 miles
 
 export async function GET(req: NextRequest) {
   // Verify this is a legitimate Vercel cron invocation
