@@ -44,7 +44,7 @@ export default function Step3() {
 
   if (sent) {
     return (
-      <StepLayout step={3} backHref="/host/size">
+      <StepLayout step={3} backHref="/host/address">
         <div style={{ paddingTop: 16, textAlign: "center" }}>
           <div style={{
             width: 52, height: 52, borderRadius: "50%",
@@ -81,7 +81,7 @@ export default function Step3() {
   }
 
   return (
-    <StepLayout step={3} backHref="/host/size">
+    <StepLayout step={3} backHref="/host/address">
       <div style={{ paddingTop: 16 }}>
         <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
           Great! Let's save your party.
