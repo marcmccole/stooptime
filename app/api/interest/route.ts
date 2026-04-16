@@ -12,7 +12,7 @@ function getClients() {
   };
 }
 
-const NOTIFY_THRESHOLD = 3;
+const NOTIFY_THRESHOLD = 2;
 const RADIUS_METERS = 805; // 0.5 miles
 
 async function geocodeAddress(address: string): Promise<{
