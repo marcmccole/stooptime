@@ -89,14 +89,18 @@ export default function Home() {
             onClick={() => track("Interest CTA Clicked")}
             style={{
               display: "block",
-              marginTop: 16,
+              marginTop: 12,
+              padding: "14px 24px",
+              borderRadius: 10,
+              border: "1.5px solid rgba(255,255,255,0.6)",
               color: "white",
-              fontSize: 15,
-              textDecoration: "underline",
-              textUnderlineOffset: 3,
+              fontSize: 16,
+              fontWeight: 500,
+              textDecoration: "none",
+              textAlign: "center",
             }}
           >
-            Tell me when my block gets one →
+            Join a block party →
           </a>
         </div>
       </section>
