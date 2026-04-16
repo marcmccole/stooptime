@@ -88,15 +88,12 @@ export default function Home() {
             href="/interest"
             onClick={() => track("Interest CTA Clicked")}
             style={{
-              display: "inline-block",
-              marginTop: 12,
-              padding: "16px 32px",
-              borderRadius: 50,
-              border: "1.5px solid rgba(255,255,255,0.6)",
+              display: "block",
+              marginTop: 16,
               color: "white",
-              fontSize: 16,
-              fontWeight: 600,
-              textDecoration: "none",
+              fontSize: 15,
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
             }}
           >
             Join a block party →
