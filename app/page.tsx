@@ -96,7 +96,7 @@ export default function Home() {
               textUnderlineOffset: 3,
             }}
           >
-            Join a block party →
+            Tell me when my block gets one →
           </a>
         </div>
       </section>
