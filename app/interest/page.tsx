@@ -115,6 +115,53 @@ function AddressInput({ onSelect }: { onSelect: (val: string) => void }) {
   );
 }
 
+const TICKER_EVENTS = [
+  "🍷 Wine night at Maya's — Fri 7pm · just now",
+  "🐕 Lost dog: Biscuit (corgi) — near Linden · 4 mins ago",
+  "🔥 Free firewood — Oak & 4th, come grab it · 23 mins ago",
+  "🎃 Pumpkin carving at the Johnsons' — Sun 4pm · 1 hr ago",
+  "🛍️ Stoop sale Saturday — 142 Maple, 9am-2pm · 3 hrs ago",
+  "👋 New neighbor on Oak — Sarah just joined · 5 hrs ago",
+];
+
+function LiveTicker() {
+  const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIdx(i => (i + 1) % TICKER_EVENTS.length);
+        setVisible(true);
+      }, 350);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{
+      display: "inline-flex", alignItems: "center", gap: 8,
+      background: "#FDF0E8", borderRadius: 100,
+      padding: "7px 14px", marginBottom: 20,
+    }}>
+      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#E8521A", flexShrink: 0 }} />
+      <span style={{ fontSize: 11, fontWeight: 700, color: "#E8521A", letterSpacing: "0.04em", flexShrink: 0 }}>
+        LIVE
+      </span>
+      <span style={{
+        fontSize: 13, color: "#1A1A1A",
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.3s ease",
+        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+        maxWidth: 220,
+      }}>
+        {TICKER_EVENTS[idx]}
+      </span>
+    </div>
+  );
+}
+
 export default function InterestAddress() {
   const [address, setAddress] = useState("");
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -136,6 +183,7 @@ export default function InterestAddress() {
       />
       <InterestLayout backHref="/">
         <div style={{ paddingTop: 8 }}>
+          <LiveTicker />
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
             What's your block?
           </h1>
