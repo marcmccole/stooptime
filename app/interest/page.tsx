@@ -142,7 +142,7 @@ export default function InterestAddress() {
             background: "#F5EDE6", marginBottom: 24,
             aspectRatio: "3 / 2", position: "relative",
           }}>
-            <Image src="/scene.png" alt="Neighborhood scene" fill style={{ objectFit: "cover" }} priority />
+            <Image src="/yourblock.png" alt="Neighborhood scene" fill style={{ objectFit: "cover" }} priority />
           </div>
 
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
@@ -158,9 +158,6 @@ export default function InterestAddress() {
           <div style={{ marginBottom: 8 }}>
             <AddressInput onSelect={setAddress} />
           </div>
-          <p style={{ fontSize: 12, color: "#AAAAAA", marginTop: 6 }}>
-            Your exact address is never shown to neighbors.
-          </p>
         </div>
 
         <div style={{ marginTop: "auto" }}>
@@ -178,6 +175,9 @@ export default function InterestAddress() {
           >
             Continue →
           </button>
+          <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
+            Your exact address is never shown to neighbors.
+          </p>
         </div>
       </InterestLayout>
     </>
