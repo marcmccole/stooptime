@@ -137,10 +137,10 @@ export default function InterestAddress() {
       <InterestLayout backHref="/">
         <div style={{ paddingTop: 8 }}>
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
-            Where do you live?
+            What's your block?
           </h1>
           <p style={{ fontSize: 15, color: "#888", marginBottom: 32, lineHeight: 1.6 }}>
-            We'll let you know when neighbors want to throw a block party.
+            We use your address so that we can notify you when something is happening on your block.
           </p>
 
           <label style={{ fontSize: 13, fontWeight: 600, color: "#1A1A1A", marginBottom: 8, display: "block" }}>
@@ -149,6 +149,9 @@ export default function InterestAddress() {
           <div style={{ marginBottom: 8 }}>
             <AddressInput onSelect={setAddress} />
           </div>
+          <p style={{ fontSize: 12, color: "#AAAAAA", marginTop: 6 }}>
+            Your exact address is never shown to neighbors.
+          </p>
         </div>
 
         <div style={{ marginTop: "auto" }}>
@@ -166,9 +169,6 @@ export default function InterestAddress() {
           >
             Continue →
           </button>
-          <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
-            We'll never share your address publicly.
-          </p>
         </div>
       </InterestLayout>
     </>
