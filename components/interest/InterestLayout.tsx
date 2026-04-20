@@ -24,7 +24,7 @@ export default function InterestLayout({ backHref = "/", children }: InterestLay
           </svg>
         </a>
         <a href="/" style={{ textDecoration: "none" }}>
-          <img src="/stoop.svg" alt="Stoop" style={{ height: 22 }} />
+          <img src="/stoop.svg" alt="Stoop" style={{ height: 28 }} />
         </a>
         <div style={{ width: 20 }} />
       </header>

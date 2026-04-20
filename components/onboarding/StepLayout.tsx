@@ -39,7 +39,7 @@ export default function StepLayout({ step, total = 7, backHref, children }: Step
           </span>
         </div>
         <a href="/" style={{ textDecoration: "none" }}>
-          <img src="/stoop.svg" alt="Stoop" style={{ height: 22 }} />
+          <img src="/stoop.svg" alt="Stoop" style={{ height: 28 }} />
         </a>
       </header>
 

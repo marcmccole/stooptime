@@ -146,7 +146,7 @@ export default function InterestAddress() {
           </div>
 
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
-            What's your block?
+            Where's your block?
           </h1>
           <p style={{ fontSize: 15, color: "#888", marginBottom: 32, lineHeight: 1.6 }}>
             We use your address to notify you when a neighbor hosts a block party nearby.
@@ -175,7 +175,7 @@ export default function InterestAddress() {
           >
             Continue →
           </button>
-          <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
+          <p style={{ fontSize: 11, color: "#999999", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
             Your exact address is never shown to neighbors.
           </p>
         </div>
