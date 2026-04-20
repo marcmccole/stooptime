@@ -146,15 +146,12 @@ function LiveTicker() {
       padding: "7px 14px", marginBottom: 20,
     }}>
       <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#E8521A", flexShrink: 0 }} />
-      <span style={{ fontSize: 11, fontWeight: 700, color: "#E8521A", letterSpacing: "0.04em", flexShrink: 0 }}>
-        LIVE
-      </span>
-      <span style={{
+<span style={{
         fontSize: 13, color: "#1A1A1A",
         opacity: visible ? 1 : 0,
         transition: "opacity 0.3s ease",
         whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-        maxWidth: 220,
+        maxWidth: 260,
       }}>
         {TICKER_EVENTS[idx]}
       </span>
