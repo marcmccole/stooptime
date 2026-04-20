@@ -153,11 +153,11 @@ export default function Step3() {
           </button>
         </form>
 
-        <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
+        <p style={{ fontSize: 11, color: "#999999", textAlign: "center", marginTop: 24, lineHeight: 1.7 }}>
           By continuing, you agree to our{" "}
-          <a href="/privacy" style={{ color: "#CCCCCC" }}>Privacy Policy</a>.
+          <a href="/privacy" style={{ color: "#999999" }}>Privacy Policy</a>.
         </p>
-        <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+        <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 12 }}>
           Questions?{" "}
           <a href="mailto:support@stooptime.com" style={{ color: "#AAAAAA", textDecoration: "none" }}>
             support@stooptime.com

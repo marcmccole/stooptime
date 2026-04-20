@@ -226,7 +226,7 @@ export default function RSVPAuth({ params: paramsPromise }: { params: Promise<{ 
           {loading === "google" ? "Redirecting…" : "Continue with Google"}
         </button>
 
-        <p style={{ fontSize: 11, color: "#CCCCCC", textAlign: "center", marginTop: 28, lineHeight: 1.7 }}>
+        <p style={{ fontSize: 11, color: "#999999", textAlign: "center", marginTop: 28, lineHeight: 1.7 }}>
           We'll only use your email to send party updates and let your neighbors know you're coming.
         </p>
       </div>

@@ -180,7 +180,7 @@ export default function Step2() {
           >
             Let's go →
           </a>
-          <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+          <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 12 }}>
             Nothing is set in stone — you can adjust everything later
           </p>
         </div>

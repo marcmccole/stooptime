@@ -233,7 +233,7 @@ export default function Step6() {
         >
           Continue
         </a>
-        <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+        <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 12 }}>
           We'll use this to write your flyer
         </p>
       </div>

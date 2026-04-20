@@ -217,7 +217,7 @@ export default function Step4() {
         >
           Continue
         </a>
-        <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+        <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 12 }}>
           You can change this later if you need to
         </p>
       </div>

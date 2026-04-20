@@ -218,7 +218,7 @@ export default function Step7() {
           >
             {preview ? "Create my flyer →" : "Continue without a photo"}
           </a>
-          <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 12 }}>
+          <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 12 }}>
             We'll use this on your flyer
           </p>
         </div>

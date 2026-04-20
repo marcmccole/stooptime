@@ -143,7 +143,7 @@ export default function SignIn() {
             {loading ? "Sending…" : "Send sign-in link"}
           </button>
         </form>
-        <p style={{ fontSize: 12, color: "#CCCCCC", textAlign: "center", marginTop: 28 }}>
+        <p style={{ fontSize: 12, color: "#999999", textAlign: "center", marginTop: 28 }}>
           Questions?{" "}
           <a href="mailto:support@stooptime.com" style={{ color: "#AAAAAA", textDecoration: "none" }}>
             support@stooptime.com
