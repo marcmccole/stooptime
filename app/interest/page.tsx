@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import Script from "next/script";
 import usePlacesAutocomplete, { Suggestion } from "use-places-autocomplete";
 import InterestLayout from "@/components/interest/InterestLayout";
+import Image from "next/image";
 import { track } from "@/lib/mixpanel";
 
 function AddressInput({ onSelect }: { onSelect: (val: string) => void }) {
@@ -136,11 +137,19 @@ export default function InterestAddress() {
       />
       <InterestLayout backHref="/">
         <div style={{ paddingTop: 8 }}>
+          <div style={{
+            width: "100%", borderRadius: 16, overflow: "hidden",
+            background: "#F5EDE6", marginBottom: 24,
+            aspectRatio: "3 / 2", position: "relative",
+          }}>
+            <Image src="/scene.png" alt="Neighborhood scene" fill style={{ objectFit: "cover" }} priority />
+          </div>
+
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1A1A1A", marginBottom: 8, lineHeight: 1.2 }}>
             What's your block?
           </h1>
           <p style={{ fontSize: 15, color: "#888", marginBottom: 32, lineHeight: 1.6 }}>
-            We use your address so that we can notify you when something is happening on your block.
+            We use your address to notify you when a neighbor hosts a block party nearby.
           </p>
 
           <label style={{ fontSize: 13, fontWeight: 600, color: "#1A1A1A", marginBottom: 8, display: "block" }}>
