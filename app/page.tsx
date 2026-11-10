@@ -184,16 +184,15 @@ export default function Home() {
                 style={{
                   margin: 0,
                   fontFamily: DISPLAY,
-                  fontWeight: 800,
-                  lineHeight: 0.92,
-                  letterSpacing: "-0.045em",
+                  fontWeight: 700,
+                  lineHeight: 1.04,
+                  letterSpacing: "-0.03em",
+                  textWrap: "balance",
                 }}
               >
-                Text your
-                <br />
-                neighbors.
+                Text your neighbors.
               </h1>
-              <p style={{ margin: 0, maxWidth: 520, fontSize: 21, lineHeight: 1.45, color: "#2B3A57" }}>
+              <p style={{ margin: 0, maxWidth: 500, fontSize: 20, lineHeight: 1.45, color: "#4A566E" }}>
                 One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if
                 you&apos;ve never met.
               </p>

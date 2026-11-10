@@ -341,10 +341,10 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ── "Text your neighbors" homepage ── */
-.tyn-hero { padding: 72px 24px 88px; }
+.tyn-hero { padding: 16px 24px 88px; }
 .tyn-street { padding: 0 24px 96px; }
 .tyn-join { padding: 96px 24px; scroll-margin-top: 0; }
-.tyn-hero-title { font-size: clamp(60px, 10vw, 128px); }
+.tyn-hero-title { font-size: clamp(46px, 5.8vw, 76px); }
 .tyn-hero { overflow: hidden; }
 .tyn-hero-top { position: relative; max-width: 1160px; margin: 0 auto; }
 .tyn-hero-copy {
@@ -353,25 +353,26 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 22px;
   text-align: center;
+  padding: 132px 0 124px;
 }
 .tyn-scatter { position: absolute; inset: 0; }
 .tyn-blob { position: absolute; width: var(--s, 100px); height: var(--s, 100px); transform: rotate(var(--r, 0deg)); }
-.tyn-blob-0 { left: 15%; top: -30px; --s: 68px; --r: 10deg; }
-.tyn-blob-1 { left: 17%; top: 350px; --s: 40px; }
-.tyn-blob-2 { right: -30px; top: 176px; --s: 92px; --r: 20deg; }
-.tyn-blob-3 { right: 18%; top: -8px; --s: 38px; }
-.tyn-blob-4 { left: -34px; top: 232px; --s: 76px; --r: 14deg; }
+.tyn-blob-0 { left: 29%; top: -34px; --s: 110px; --r: 10deg; }
+.tyn-blob-1 { left: 31%; top: 440px; --s: 64px; }
+.tyn-blob-2 { right: -70px; top: 250px; --s: 150px; --r: 20deg; }
+.tyn-blob-3 { right: 30%; top: 26px; --s: 56px; }
+.tyn-blob-4 { left: -64px; top: 300px; --s: 130px; --r: 14deg; }
 
 .tyn-ask {
   position: absolute;
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 9px;
-  max-width: 196px;
-  padding: 6px 14px 6px 6px;
+  gap: 12px;
+  max-width: 250px;
+  padding: 9px 20px 9px 9px;
   border-radius: 999px;
   background: #FFFFFF;
   box-shadow: 0 6px 18px rgba(70, 35, 10, 0.12);
@@ -381,28 +382,28 @@ input:focus, textarea:focus, select:focus {
 }
 .tyn-ask-badge {
   flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 21px;
+  font-size: 32px;
   line-height: 1;
 }
-.tyn-ask-text { font-size: 13px; font-weight: 600; line-height: 1.25; text-align: left; color: #14213A; }
+.tyn-ask-text { font-size: 15px; font-weight: 600; line-height: 1.25; text-align: left; color: #14213A; }
 @keyframes tyn-bob {
   from { transform: rotate(var(--r, 0deg)) translateY(0); }
   to { transform: rotate(var(--r, 0deg)) translateY(-7px); }
 }
 /* left side */
-.tyn-ask-0 { left: 14px; top: 18px; --r: -6deg; }
-.tyn-ask-3 { left: 44px; top: 150px; --r: 4deg; --d: -2.1s; }
-.tyn-ask-1 { left: 6px; top: 286px; --r: -3deg; --d: -3.3s; }
+.tyn-ask-0 { left: 3%; top: 20px; --r: -6deg; }
+.tyn-ask-3 { left: 0; top: 214px; --r: 4deg; --d: -2.1s; }
+.tyn-ask-1 { left: 11%; top: 410px; --r: -3deg; --d: -3.3s; }
 /* right side */
-.tyn-ask-2 { right: 12px; top: 28px; --r: 5deg; --d: -0.8s; }
-.tyn-ask-5 { right: 48px; top: 162px; --r: -5deg; --d: -2.8s; }
-.tyn-ask-4 { right: 8px; top: 292px; --r: 3deg; --d: -1.9s; }
+.tyn-ask-2 { right: 4%; top: 10px; --r: 5deg; --d: -0.8s; }
+.tyn-ask-5 { right: 0; top: 196px; --r: -5deg; --d: -2.8s; }
+.tyn-ask-4 { right: 10%; top: 420px; --r: 3deg; --d: -1.9s; }
 
 /* Below desktop width there is no room to scatter: the six badges sit in a row above the headline */
 @media (max-width: 1100px) {
@@ -410,9 +411,11 @@ input:focus, textarea:focus, select:focus {
   .tyn-blob { display: none; }
   .tyn-ask { position: static; padding: 0; background: none; box-shadow: none; max-width: none; }
   .tyn-ask-text { display: none; }
-  .tyn-ask-badge { width: 40px; height: 40px; font-size: 22px; }
+  .tyn-ask-badge { width: 44px; height: 44px; font-size: 25px; }
+  .tyn-hero-copy { padding: 0 0 56px; }
+  .tyn-hero { padding-top: 40px; }
 }
-.tyn-hero-art { max-width: 560px; margin: 64px auto 0; display: flex; flex-direction: column; }
+.tyn-hero-art { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; }
 .tyn-thread {
   position: relative;
   margin: -84px 20px 0;
@@ -499,16 +502,15 @@ input:focus, textarea:focus, select:focus {
 }
 
 @media (max-width: 640px) {
-  .tyn-hero { padding: 44px 20px 56px; }
+  .tyn-hero { padding: 32px 20px 56px; }
   .tyn-street { padding: 0 20px 64px; }
   .tyn-join { padding: 64px 20px; }
   .tyn-how { padding: 56px 20px; }
   .tyn-privacy { padding: 28px 22px; }
-  .tyn-hero-title { font-size: 68px; }
-  .tyn-hero-art { margin-top: 48px; }
+  .tyn-hero-title { font-size: 50px; }
   .tyn-thread { margin: -56px 12px 0; }
   .tyn-scatter { flex-wrap: nowrap; gap: 8px; }
-  .tyn-ask-badge { width: 36px; height: 36px; font-size: 20px; }
+  .tyn-ask-badge { width: 40px; height: 40px; font-size: 23px; }
   .tyn-house-wall { min-height: 0 !important; }
   .tyn-cta { width: 100%; justify-content: center; }
 }
