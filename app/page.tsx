@@ -38,7 +38,6 @@ const DISPLAY = "var(--font-tyn-display), system-ui, sans-serif";
 
 type House = {
   ask: string;
-  who: string;
   reply: string;
   wall: string;
   roof: string;
@@ -46,12 +45,12 @@ type House = {
   minHeight: number;
 };
 
-// Each house is a text someone sent; the stoop under it is the neighbor who answered.
+// Each house is a text someone sent; the stoop under it is what Stoop texts back.
+// Neighbors stay anonymous in these replies: names only appear after both sides agree to an intro.
 const houses: House[] = [
   {
     ask: "Anyone have a tall ladder I can borrow Saturday?",
-    who: "Dan on Upland:",
-    reply: "It's in my garage. Come by after 9.",
+    reply: "A neighbor on Upland has one. Want me to introduce you?",
     wall: "#F7C9D0",
     roof: "#E79AA8",
     gable: true,
@@ -59,8 +58,7 @@ const houses: House[] = [
   },
   {
     ask: "Looking for a babysitter this Friday, 6 to 10.",
-    who: "The Lins on Darien:",
-    reply: "Our daughter Maya is free.",
+    reply: "A family on Darien has a 17-year-old who sits. Want an intro?",
     wall: "#F6E3A1",
     roof: "#D9B84A",
     gable: false,
@@ -68,8 +66,7 @@ const houses: House[] = [
   },
   {
     ask: "Away for two weeks. Could someone water my plants?",
-    who: "Ruth next door:",
-    reply: "Leave the key under the pot.",
+    reply: "A neighbor two doors down said yes. Want me to introduce you?",
     wall: "#BFE5CF",
     roof: "#7FC7A0",
     gable: true,
@@ -77,12 +74,26 @@ const houses: House[] = [
   },
   {
     ask: "UPS left a box on my steps and I'm out till Sunday.",
-    who: "Sam across the street:",
-    reply: "Got it. It's inside my door.",
+    reply: "A neighbor across the street can grab it. OK to share your address?",
     wall: "#BFD9F2",
     roof: "#7FAEDD",
     gable: false,
     minHeight: 170,
+  },
+];
+
+const steps = [
+  {
+    title: "It starts with a text.",
+    body: "Stoop lives in your messages, next to everyone else you text. Nothing to download, no account to set up.",
+  },
+  {
+    title: "It gets to know you.",
+    body: "A few questions over text: your house, who lives there, the plumber or sitter you would vouch for, what you would lend, what you might need.",
+  },
+  {
+    title: "Then you just ask.",
+    body: "Text what you need. Stoop works out which neighbors are likely to know and asks them for you.",
   },
 ];
 
@@ -222,7 +233,7 @@ export default function Home() {
                   lineHeight: 1.4,
                 }}
               >
-                Priya on Kenwood used Marco last spring and would hire him again. Want his number?
+                A neighbor on Kenwood used Marco&apos;s Roofing last spring and would hire them again. Want the number?
               </p>
             </div>
           </div>
@@ -282,11 +293,80 @@ export default function Home() {
                     lineHeight: 1.4,
                   }}
                 >
-                  <strong>{h.who}</strong> {h.reply}
+                  <strong>Stoop:</strong> {h.reply}
                 </div>
                 <div aria-hidden="true" style={{ height: 10, background: "#2B3A57" }} />
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="tyn-how" style={{ background: "#FFFFFF" }}>
+          <div style={{ maxWidth: 1160, margin: "0 auto", display: "flex", flexDirection: "column", gap: 48 }}>
+            <h2
+              className="tyn-section-title"
+              style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.03em" }}
+            >
+              How it works
+            </h2>
+
+            <ol className="tyn-steps">
+              {steps.map((s, i) => (
+                <li key={s.title} className="tyn-step">
+                  <span
+                    aria-hidden="true"
+                    style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 56, lineHeight: 1, color: ACCENT }}
+                  >
+                    {i + 1}
+                  </span>
+                  <h3 style={{ margin: 0, fontFamily: DISPLAY, fontWeight: 700, fontSize: 26, lineHeight: 1.15 }}>
+                    {s.title}
+                  </h3>
+                  <p style={{ margin: 0, color: "#2B3A57" }}>{s.body}</p>
+                </li>
+              ))}
+            </ol>
+
+            {/* Privacy: anonymous by default, named only after both sides agree */}
+            <div className="tyn-privacy" style={{ background: "#EEF2F6", borderRadius: 28 }}>
+              <div style={{ flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontFamily: DISPLAY,
+                    fontWeight: 800,
+                    fontSize: 36,
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.025em",
+                    textWrap: "balance",
+                  }}
+                >
+                  Private until you choose to be introduced.
+                </h3>
+                <p style={{ margin: 0, maxWidth: 460, color: "#2B3A57" }}>
+                  What you tell Stoop helps your neighbors, but it never carries your name. You become a name and a
+                  number only when you and the other neighbor both say yes.
+                </p>
+              </div>
+              <div style={{ flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <span className="tyn-label">What neighbors see</span>
+                  <p className="tyn-bubble">
+                    <strong>A neighbor on Westgate</strong>{" "}
+                    recommends Marcello&apos;s Plumbing.
+                  </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <span className="tyn-label">Only if you both say yes</span>
+                  <p className="tyn-bubble">
+                    <strong>Bob on Westgate</strong>{" "}
+                    recommends Marcello&apos;s Plumbing. He says to text him if you
+                    want the full story.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

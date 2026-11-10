@@ -348,6 +348,23 @@ input:focus, textarea:focus, select:focus {
 .tyn-join-title { font-size: clamp(40px, 6vw, 72px); }
 .tyn-house { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; }
 
+.tyn-how { padding: 88px 24px; }
+.tyn-section-title { font-size: clamp(36px, 5vw, 56px); }
+.tyn-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 40px 32px; }
+.tyn-step { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.tyn-privacy { padding: 48px; display: flex; flex-wrap: wrap; align-items: center; gap: 36px 64px; }
+.tyn-label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3D4A63; }
+.tyn-bubble {
+  margin: 0;
+  align-self: flex-start;
+  background: #FFFFFF;
+  color: #14213A;
+  padding: 14px 18px;
+  border-radius: 20px 20px 20px 6px;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
 .tyn-cta {
   display: inline-flex;
   align-items: center;
@@ -406,6 +423,8 @@ input:focus, textarea:focus, select:focus {
   .tyn-hero { padding: 44px 20px 56px; }
   .tyn-street { padding: 0 20px 64px; }
   .tyn-join { padding: 64px 20px; }
+  .tyn-how { padding: 56px 20px; }
+  .tyn-privacy { padding: 28px 22px; }
   .tyn-hero-title { font-size: 68px; }
   .tyn-house-wall { min-height: 0 !important; }
   .tyn-cta { width: 100%; justify-content: center; }
