@@ -15,11 +15,11 @@ const body = Instrument_Sans({
 export const metadata: Metadata = {
   title: "Stoop — Text your neighbors",
   description:
-    "One number for the neighborhood. Text what you need and Stoop asks the right neighbor for you.",
+    "One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if you've never met.",
   openGraph: {
     title: "Stoop — Text your neighbors",
     description:
-      "One number for the neighborhood. Text what you need and Stoop asks the right neighbor for you.",
+      "One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if you've never met.",
     url: "https://stooptime.com",
     siteName: "Stoop",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Stoop — Text your neighbors",
     description:
-      "One number for the neighborhood. Text what you need and Stoop asks the right neighbor for you.",
+      "One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if you've never met.",
   },
 };
 
@@ -168,7 +168,8 @@ export default function Home() {
                 Text your neighbors.
               </h1>
               <p style={{ margin: 0, maxWidth: 500, fontSize: 21, lineHeight: 1.45, color: "#2B3A57" }}>
-                One number for the neighborhood. Text what you need and Stoop asks the right neighbor for you.
+                One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if
+                you&apos;ve never met.
               </p>
               <a href="#join" className="tyn-cta">
                 Get Stoop on your street
