@@ -83,10 +83,34 @@ const houses: House[] = [
   },
 ];
 
-// Small things that pass between neighbors: a dog walk, a carton of milk, a contractor's name,
-// garden cuttings, an afternoon at the park, a drink on the porch. Decorative only.
-// The first six are the ones shown on phones.
-const stickers = ["🐕", "🥛", "👷", "🌱", "🌳", "🍸", "🪜", "🔑", "🍋", "📦"];
+// Small things that pass between neighbors, shown as tilted request bubbles around the hero
+// headline. Decorative: the real example lives in the thread under the illustration.
+const asks = [
+  { emoji: "🐕", text: "Can anyone walk Biscuit at 3?", color: "#F7A8B8" },
+  { emoji: "🥛", text: "Out of milk. Anyone have a cup?", color: "#8EC5F5" },
+  { emoji: "👷", text: "Who did your kitchen? We love it.", color: "#F9D25C" },
+  { emoji: "🌱", text: "Tomato seedlings on our stoop. Take some!", color: "#86D9A5" },
+  { emoji: "🌳", text: "Park on Sunday? We have little ones.", color: "#C3A8F2" },
+  { emoji: "🍸", text: "Porch drinks Friday at 6?", color: "#F7A26B" },
+];
+
+// Scalloped "flower" shapes scattered behind the hero for colour.
+const blobs = ["#F7A8B8", "#F9D25C", "#86D9A5", "#8EC5F5", "#C3A8F2"];
+
+function Blob({ color, className }: { color: string; className: string }) {
+  const petals = Array.from({ length: 8 }, (_, k) => {
+    const a = (k * Math.PI) / 4;
+    return { cx: 50 + 27 * Math.cos(a), cy: 50 + 27 * Math.sin(a) };
+  });
+  return (
+    <svg className={className} viewBox="0 0 100 100" fill={color} aria-hidden="true">
+      <circle cx="50" cy="50" r="30" />
+      {petals.map((c, k) => (
+        <circle key={k} cx={c.cx.toFixed(2)} cy={c.cy.toFixed(2)} r="21" />
+      ))}
+    </svg>
+  );
+}
 
 const steps = [
   {
@@ -141,11 +165,17 @@ export default function Home() {
         {/* Hero */}
         <section className="tyn-hero">
           <div className="tyn-hero-top">
-            <div className="tyn-stickers" aria-hidden="true">
-              {stickers.map((emoji, i) => (
-                <span key={emoji} className={`tyn-sticker tyn-sticker-${i}`}>
-                  {emoji}
-                </span>
+            <div className="tyn-scatter" aria-hidden="true">
+              {blobs.map((color, i) => (
+                <Blob key={color} color={color} className={`tyn-blob tyn-blob-${i}`} />
+              ))}
+              {asks.map((ask, i) => (
+                <div key={ask.emoji} className={`tyn-ask tyn-ask-${i}`}>
+                  <span className="tyn-ask-badge" style={{ background: ask.color }}>
+                    {ask.emoji}
+                  </span>
+                  <span className="tyn-ask-text">{ask.text}</span>
+                </div>
               ))}
             </div>
             <div className="tyn-hero-copy">
