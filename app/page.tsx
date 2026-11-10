@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import TextSignupForm from "@/components/landing/TextSignupForm";
 
@@ -84,7 +83,7 @@ const houses: House[] = [
 ];
 
 // Small things that pass between neighbors, shown as tilted request bubbles around the hero
-// headline. Decorative: the real example lives in the thread under the illustration.
+// headline. Decorative.
 const asks = [
   { emoji: "🐕", text: "Can anyone walk Biscuit at 3?", color: "#F7A8B8" },
   { emoji: "🥛", text: "Out of milk. Anyone have a cup?", color: "#8EC5F5" },
@@ -199,54 +198,6 @@ export default function Home() {
               <a href="#join" className="tyn-cta">
                 Get Stoop on your street
               </a>
-            </div>
-          </div>
-
-          {/* Illustration with an example thread laid over its lower edge */}
-          <div className="tyn-hero-art">
-            <Image
-              src="/scene.png"
-              alt="Three neighbors sitting together on a front stoop in the evening light"
-              width={1232}
-              height={928}
-              priority
-              sizes="(max-width: 640px) 100vw, 560px"
-              style={{ width: "100%", height: "auto", borderRadius: 28, display: "block" }}
-            />
-            <div className="tyn-thread">
-              <p
-                style={{
-                  margin: 0,
-                  alignSelf: "flex-end",
-                  maxWidth: "88%",
-                  background: ACCENT,
-                  color: "#FFFFFF",
-                  padding: "12px 16px",
-                  borderRadius: "20px 20px 6px 20px",
-                  fontSize: 16,
-                  lineHeight: 1.4,
-                }}
-              >
-                We have two little kids. Any other families want to meet at the park on Sunday?
-              </p>
-              <p style={{ margin: 0, alignSelf: "center", textAlign: "center", fontSize: 13, color: "#3D4A63" }}>
-                Asking families nearby with young kids
-              </p>
-              <p
-                style={{
-                  margin: 0,
-                  alignSelf: "flex-start",
-                  maxWidth: "88%",
-                  background: "#F4EEE7",
-                  color: INK,
-                  padding: "12px 16px",
-                  borderRadius: "20px 20px 20px 6px",
-                  fontSize: 16,
-                  lineHeight: 1.4,
-                }}
-              >
-                Three families said yes. 10am at the playground. Want me to introduce you all?
-              </p>
             </div>
           </div>
         </section>
