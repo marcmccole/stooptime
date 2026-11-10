@@ -344,8 +344,54 @@ input:focus, textarea:focus, select:focus {
 .tyn-hero { padding: 72px 24px 88px; }
 .tyn-street { padding: 0 24px 96px; }
 .tyn-join { padding: 96px 24px; scroll-margin-top: 0; }
-.tyn-hero-title { font-size: clamp(60px, 8.6vw, 116px); }
-.tyn-hero-art { flex: 1 1 400px; min-width: 0; max-width: 500px; display: flex; flex-direction: column; }
+.tyn-hero-title { font-size: clamp(60px, 10vw, 128px); }
+.tyn-hero { overflow: hidden; }
+.tyn-hero-top { position: relative; max-width: 1160px; margin: 0 auto; }
+.tyn-hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+.tyn-stickers { position: absolute; inset: 0; }
+.tyn-sticker {
+  position: absolute;
+  font-size: var(--s, 64px);
+  line-height: 1;
+  /* white die-cut edge, then a soft shadow */
+  filter: drop-shadow(2px 0 0 #FFFFFF) drop-shadow(-2px 0 0 #FFFFFF) drop-shadow(0 2px 0 #FFFFFF)
+    drop-shadow(0 -2px 0 #FFFFFF) drop-shadow(0 8px 10px rgba(70, 35, 10, 0.18));
+  transform: rotate(var(--r, 0deg));
+  animation: tyn-bob 5s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+@keyframes tyn-bob {
+  from { transform: rotate(var(--r, 0deg)) translateY(0); }
+  to { transform: rotate(var(--r, 0deg)) translateY(-7px); }
+}
+/* left side */
+.tyn-sticker-0 { left: 2%; top: 0; --s: 84px; --r: -10deg; }
+.tyn-sticker-3 { left: 13%; top: 150px; --s: 60px; --r: 8deg; --d: -2.1s; }
+.tyn-sticker-1 { left: 3%; top: 290px; --s: 66px; --r: 6deg; --d: -3.3s; }
+.tyn-sticker-7 { left: 16%; top: 370px; --s: 46px; --r: -14deg; --d: -1.4s; }
+.tyn-sticker-6 { left: 16%; top: 20px; --s: 50px; --r: 12deg; --d: -4s; }
+/* right side */
+.tyn-sticker-2 { right: 3%; top: 10px; --s: 78px; --r: 8deg; --d: -0.8s; }
+.tyn-sticker-5 { right: 14%; top: 140px; --s: 60px; --r: -8deg; --d: -2.8s; }
+.tyn-sticker-4 { right: 2%; top: 262px; --s: 86px; --r: -5deg; --d: -1.9s; }
+.tyn-sticker-8 { right: 16%; top: 366px; --s: 48px; --r: 10deg; --d: -3.7s; }
+.tyn-sticker-9 { right: 16%; top: 12px; --s: 50px; --r: -10deg; --d: -0.3s; }
+
+/* Below desktop width the stickers become a single row above the headline */
+@media (max-width: 1000px) {
+  .tyn-stickers { position: static; display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 28px; }
+  .tyn-sticker { position: static; --s: 40px; }
+  .tyn-sticker:nth-child(n + 7) { display: none; }
+}
+.tyn-hero-art { max-width: 560px; margin: 64px auto 0; display: flex; flex-direction: column; }
 .tyn-thread {
   position: relative;
   margin: -84px 20px 0;
@@ -438,7 +484,7 @@ input:focus, textarea:focus, select:focus {
   .tyn-how { padding: 56px 20px; }
   .tyn-privacy { padding: 28px 22px; }
   .tyn-hero-title { font-size: 68px; }
-  .tyn-hero-art { max-width: none; }
+  .tyn-hero-art { margin-top: 48px; }
   .tyn-thread { margin: -56px 12px 0; }
   .tyn-house-wall { min-height: 0 !important; }
   .tyn-cta { width: 100%; justify-content: center; }
@@ -446,4 +492,5 @@ input:focus, textarea:focus, select:focus {
 
 @media (prefers-reduced-motion: reduce) {
   .tyn-cta, .tyn-submit { transition: none; }
+  .tyn-sticker { animation: none; }
 }

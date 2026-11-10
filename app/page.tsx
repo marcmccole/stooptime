@@ -83,6 +83,11 @@ const houses: House[] = [
   },
 ];
 
+// Small things that pass between neighbors: a dog walk, a carton of milk, a contractor's name,
+// garden cuttings, an afternoon at the park, a drink on the porch. Decorative only.
+// The first six are the ones shown on phones.
+const stickers = ["🐕", "🥛", "👷", "🌱", "🌳", "🍸", "🪜", "🔑", "🍋", "📦"];
+
 const steps = [
   {
     title: "It starts with a text.",
@@ -135,26 +140,15 @@ export default function Home() {
       <main>
         {/* Hero */}
         <section className="tyn-hero">
-          <div
-            style={{
-              maxWidth: 1160,
-              margin: "0 auto",
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              gap: 56,
-            }}
-          >
-            <div
-              style={{
-                flex: "1 1 480px",
-                minWidth: 0,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                gap: 28,
-              }}
-            >
+          <div className="tyn-hero-top">
+            <div className="tyn-stickers" aria-hidden="true">
+              {stickers.map((emoji, i) => (
+                <span key={emoji} className={`tyn-sticker tyn-sticker-${i}`}>
+                  {emoji}
+                </span>
+              ))}
+            </div>
+            <div className="tyn-hero-copy">
               <h1
                 className="tyn-hero-title"
                 style={{
@@ -163,12 +157,13 @@ export default function Home() {
                   fontWeight: 800,
                   lineHeight: 0.92,
                   letterSpacing: "-0.045em",
-                  textWrap: "balance",
                 }}
               >
-                Text your neighbors.
+                Text your
+                <br />
+                neighbors.
               </h1>
-              <p style={{ margin: 0, maxWidth: 500, fontSize: 19, lineHeight: 1.5, color: "#2B3A57" }}>
+              <p style={{ margin: 0, maxWidth: 520, fontSize: 21, lineHeight: 1.45, color: "#2B3A57" }}>
                 One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if
                 you&apos;ve never met.
               </p>
@@ -176,53 +171,53 @@ export default function Home() {
                 Get Stoop on your street
               </a>
             </div>
+          </div>
 
-            {/* Illustration with an example thread laid over its lower edge */}
-            <div className="tyn-hero-art">
-              <Image
-                src="/scene.png"
-                alt="Three neighbors sitting together on a front stoop in the evening light"
-                width={1232}
-                height={928}
-                priority
-                sizes="(max-width: 900px) 100vw, 500px"
-                style={{ width: "100%", height: "auto", borderRadius: 28, display: "block" }}
-              />
-              <div className="tyn-thread">
-                <p
-                  style={{
-                    margin: 0,
-                    alignSelf: "flex-end",
-                    maxWidth: "88%",
-                    background: ACCENT,
-                    color: "#FFFFFF",
-                    padding: "12px 16px",
-                    borderRadius: "20px 20px 6px 20px",
-                    fontSize: 16,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  We have two little kids. Any other families want to meet at the park on Sunday?
-                </p>
-                <p style={{ margin: 0, alignSelf: "center", textAlign: "center", fontSize: 13, color: "#3D4A63" }}>
-                  Asking families nearby with young kids
-                </p>
-                <p
-                  style={{
-                    margin: 0,
-                    alignSelf: "flex-start",
-                    maxWidth: "88%",
-                    background: "#F4EEE7",
-                    color: INK,
-                    padding: "12px 16px",
-                    borderRadius: "20px 20px 20px 6px",
-                    fontSize: 16,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  Three families said yes. 10am at the playground. Want me to introduce you all?
-                </p>
-              </div>
+          {/* Illustration with an example thread laid over its lower edge */}
+          <div className="tyn-hero-art">
+            <Image
+              src="/scene.png"
+              alt="Three neighbors sitting together on a front stoop in the evening light"
+              width={1232}
+              height={928}
+              priority
+              sizes="(max-width: 640px) 100vw, 560px"
+              style={{ width: "100%", height: "auto", borderRadius: 28, display: "block" }}
+            />
+            <div className="tyn-thread">
+              <p
+                style={{
+                  margin: 0,
+                  alignSelf: "flex-end",
+                  maxWidth: "88%",
+                  background: ACCENT,
+                  color: "#FFFFFF",
+                  padding: "12px 16px",
+                  borderRadius: "20px 20px 6px 20px",
+                  fontSize: 16,
+                  lineHeight: 1.4,
+                }}
+              >
+                We have two little kids. Any other families want to meet at the park on Sunday?
+              </p>
+              <p style={{ margin: 0, alignSelf: "center", textAlign: "center", fontSize: 13, color: "#3D4A63" }}>
+                Asking families nearby with young kids
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  alignSelf: "flex-start",
+                  maxWidth: "88%",
+                  background: "#F4EEE7",
+                  color: INK,
+                  padding: "12px 16px",
+                  borderRadius: "20px 20px 20px 6px",
+                  fontSize: 16,
+                  lineHeight: 1.4,
+                }}
+              >
+                Three families said yes. 10am at the playground. Want me to introduce you all?
+              </p>
             </div>
           </div>
         </section>
