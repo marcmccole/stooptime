@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import TextSignupForm from "@/components/landing/TextSignupForm";
 
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 const INK = "#14213A";
-const ACCENT = "#0B7A4B";
+const ACCENT = "#C8401A";
 const DISPLAY = "var(--font-tyn-display), system-ui, sans-serif";
 
 type House = {
@@ -49,8 +50,8 @@ type House = {
 // Neighbors stay anonymous in these replies: names only appear after both sides agree to an intro.
 const houses: House[] = [
   {
-    ask: "Anyone have a tall ladder I can borrow Saturday?",
-    reply: "A neighbor on Upland has one. Want me to introduce you?",
+    ask: "Need a roofer who actually knows these houses.",
+    reply: "A neighbor on Kenwood used Marco's Roofing and would hire them again. Want the number?",
     wall: "#F7C9D0",
     roof: "#E79AA8",
     gable: true,
@@ -102,7 +103,7 @@ export default function Home() {
     <div
       className={`${display.variable} ${body.variable} tyn-page`}
       style={{
-        background: "#EEF2F6",
+        background: "#F9F6F3",
         color: INK,
         fontFamily: "var(--font-tyn-body), system-ui, sans-serif",
         fontSize: 17,
@@ -167,7 +168,21 @@ export default function Home() {
               >
                 Text your neighbors.
               </h1>
-              <p style={{ margin: 0, maxWidth: 500, fontSize: 21, lineHeight: 1.45, color: "#2B3A57" }}>
+              <p
+                style={{
+                  margin: 0,
+                  maxWidth: 520,
+                  fontFamily: DISPLAY,
+                  fontWeight: 700,
+                  fontSize: 28,
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.015em",
+                  textWrap: "balance",
+                }}
+              >
+                Be there for the people around you. Let them be there for you.
+              </p>
+              <p style={{ margin: 0, maxWidth: 500, fontSize: 19, lineHeight: 1.5, color: "#2B3A57" }}>
                 One number for the whole neighborhood. Text what you need and Stoop asks the neighbor who knows, even if
                 you&apos;ve never met.
               </p>
@@ -176,53 +191,52 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Example thread */}
-            <div
-              style={{
-                flex: "1 1 380px",
-                minWidth: 0,
-                maxWidth: 460,
-                background: "#FFFFFF",
-                borderRadius: 28,
-                padding: "28px 24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-              }}
-            >
-              <p
-                style={{
-                  margin: 0,
-                  alignSelf: "flex-end",
-                  maxWidth: "84%",
-                  background: ACCENT,
-                  color: "#FFFFFF",
-                  padding: "12px 16px",
-                  borderRadius: "20px 20px 6px 20px",
-                  fontSize: 16,
-                  lineHeight: 1.4,
-                }}
-              >
-                Need a roofer who actually knows these houses.
-              </p>
-              <p style={{ margin: 0, alignSelf: "center", textAlign: "center", fontSize: 13, color: "#3D4A63" }}>
-                Asking 3 neighbors who had roof work done
-              </p>
-              <p
-                style={{
-                  margin: 0,
-                  alignSelf: "flex-start",
-                  maxWidth: "84%",
-                  background: "#E4EAF1",
-                  color: INK,
-                  padding: "12px 16px",
-                  borderRadius: "20px 20px 20px 6px",
-                  fontSize: 16,
-                  lineHeight: 1.4,
-                }}
-              >
-                A neighbor on Kenwood used Marco&apos;s Roofing last spring and would hire them again. Want the number?
-              </p>
+            {/* Illustration with an example thread laid over its lower edge */}
+            <div className="tyn-hero-art">
+              <Image
+                src="/scene.png"
+                alt="Three neighbors sitting together on a front stoop in the evening light"
+                width={1232}
+                height={928}
+                priority
+                sizes="(max-width: 900px) 100vw, 500px"
+                style={{ width: "100%", height: "auto", borderRadius: 28, display: "block" }}
+              />
+              <div className="tyn-thread">
+                <p
+                  style={{
+                    margin: 0,
+                    alignSelf: "flex-end",
+                    maxWidth: "88%",
+                    background: ACCENT,
+                    color: "#FFFFFF",
+                    padding: "12px 16px",
+                    borderRadius: "20px 20px 6px 20px",
+                    fontSize: 16,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  We have two little kids. Any other families want to meet at the park on Sunday?
+                </p>
+                <p style={{ margin: 0, alignSelf: "center", textAlign: "center", fontSize: 13, color: "#3D4A63" }}>
+                  Asking families nearby with young kids
+                </p>
+                <p
+                  style={{
+                    margin: 0,
+                    alignSelf: "flex-start",
+                    maxWidth: "88%",
+                    background: "#F4EEE7",
+                    color: INK,
+                    padding: "12px 16px",
+                    borderRadius: "20px 20px 20px 6px",
+                    fontSize: 16,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  Three families said yes. 10am at the playground. Want me to introduce you all?
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -317,7 +331,7 @@ export default function Home() {
             </ol>
 
             {/* Privacy: anonymous by default, named only after both sides agree */}
-            <div className="tyn-privacy" style={{ background: "#EEF2F6", borderRadius: 28 }}>
+            <div className="tyn-privacy" style={{ background: "#F4EEE7", borderRadius: 28 }}>
               <div style={{ flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
                 <h3
                   style={{
