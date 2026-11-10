@@ -122,22 +122,9 @@ export default function Home() {
             gap: 16,
           }}
         >
-          <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-            <span style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 30, letterSpacing: "-0.03em" }}>
-              stoop
-            </span>
-            <span
-              style={{
-                fontSize: 14,
-                fontWeight: 500,
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
-                color: "#3D4A63",
-              }}
-            >
-              Mt. Davidson Manor
-            </span>
-          </div>
+          <span style={{ fontFamily: DISPLAY, fontWeight: 800, fontSize: 30, letterSpacing: "-0.03em" }}>
+            stoop
+          </span>
           <a href="/auth" className="tyn-link" style={{ fontSize: 15, fontWeight: 500 }}>
             Sign in
           </a>
