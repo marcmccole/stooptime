@@ -28,7 +28,12 @@
   -webkit-mask-image: linear-gradient(#000 91%, transparent);
 }
 .clay-hero .hero-content { z-index: 2; }
-.clay-hero .hero-content h1 { width: min(740px, 59vw); }
+.clay-hero .hero-content h1 { width: min(592px, 47.2vw); }
+
+/* The same friendly face used in the browser tab and the Messages contact card. */
+.demo-device .device-avatar { padding: 0; background: #f4f1e7; overflow: hidden; }
+.device-avatar picture, .device-avatar img { display: block; width: 100%; height: 100%; }
+.device-avatar img { object-fit: contain; }
 
 /* Transparent clay figures sit directly on the paper, with real, readable captions. */
 .clay-explainer {
@@ -75,13 +80,13 @@
 .clay-step:nth-child(3).is-arriving .clay-scene { animation-delay: 260ms; }
 
 @media (min-width: 761px) and (max-height: 820px) {
-  .clay-hero .hero-content h1 { width: min(670px, 59vw); }
+  .clay-hero .hero-content h1 { width: min(536px, 47.2vw); }
 }
 @media (min-width: 761px) and (max-width: 1100px) {
   .clay-hero { height: 790px; }
   .clay-hero .neighborhood-art { object-fit: fill; }
   .clay-hero .hero-content { margin-top: 32px; }
-  .clay-hero .hero-content h1 { width: 68vw; max-width: 670px; }
+  .clay-hero .hero-content h1 { width: 54.4vw; max-width: 536px; }
 }
 @media (max-width: 760px) {
   .clay-hero {
@@ -97,7 +102,7 @@
     mask-image: linear-gradient(#000 92%, transparent);
     -webkit-mask-image: linear-gradient(#000 92%, transparent);
   }
-  .clay-hero .hero-content h1 { width: 100%; max-width: 520px; }
+  .clay-hero .hero-content h1 { width: 80%; max-width: 416px; }
   .clay-explainer { padding: 55px 20px 60px; }
   .clay-steps { display: flex; flex-direction: column; gap: 44px; max-width: 520px; }
   .clay-step { display: grid; grid-template-columns: 52% 1fr; align-items: center; gap: 14px; }
