@@ -156,13 +156,11 @@ let currentCase='';
 let currentCount=-1;
 let scrollFrame=0;
 
-// Each chapter reveals its messages, then holds the completed exchange.
+// Each chapter shows its whole conversation; scrolling only moves between chapters.
 function getConversationFrame(distance,step,counts){
   const progress=Math.max(0,distance/step);
   const index=Math.min(counts.length-1,Math.floor(progress));
-  const phase=Math.min(1,progress-index);
-  const count=Math.min(counts[index],1+Math.floor(phase/.14));
-  return {index,count};
+  return {index,count:counts[index]};
 }
 
 function showConversation(key,count,animate=false,announce=false){
@@ -177,9 +175,9 @@ function showConversation(key,count,animate=false,announce=false){
   demoPanel.setAttribute('aria-labelledby','demo-tab-'+key);
   if(changingCase||count<currentCount)phoneMessages.replaceChildren();
   const start=phoneMessages.children.length;
-  example.messages.slice(start,count).forEach(([direction,text])=>{
+  example.messages.slice(start,count).forEach(([direction,text],i)=>{
     const p=document.createElement('p');p.className='demo-message '+(direction==='out'?'sent':'received');p.textContent=text;
-    if(animate&&!reducedMotion.matches)p.classList.add('arriving');
+    if(animate&&!reducedMotion.matches){p.classList.add('arriving');p.style.setProperty('--message-delay',(i*45)+'ms');}
     phoneMessages.appendChild(p);
   });
   currentCase=key;currentCount=count;
@@ -209,7 +207,7 @@ function measureStory(){
   demoSection.classList.toggle('is-scroll-story',storyEnabled);
   demoTabList.setAttribute('aria-orientation',mobileDemo.matches?'horizontal':'vertical');
   if(storyEnabled){
-    storyStep=Math.max(520,demoStage.offsetHeight*.95);
+    storyStep=Math.max(380,demoStage.offsetHeight*.6);
     demoSection.style.height=(demoStage.offsetHeight+caseKeys.length*storyStep)+'px';
     storyTop=demoSection.getBoundingClientRect().top+window.scrollY;
     updateStory();
