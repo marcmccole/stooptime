@@ -138,6 +138,20 @@ const demoTabList=document.querySelector('.demo-tabs');
 const mobileDemo=window.matchMedia('(max-width:760px)');
 let currentCase='';
 
+// Move only the mobile selector row when a chosen tab is partly outside it.
+function revealConversationTab(tab,animate=true){
+  if(!mobileDemo.matches||!tab)return;
+  const listBounds=demoTabList.getBoundingClientRect();
+  const tabBounds=tab.getBoundingClientRect();
+  const leftEdge=listBounds.left+20;
+  const rightEdge=listBounds.right-20;
+  const distance=tabBounds.left<leftEdge?tabBounds.left-leftEdge:tabBounds.right>rightEdge?tabBounds.right-rightEdge:0;
+  if(distance){
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    demoTabList.scrollBy({left:distance,behavior:animate&&!reducedMotion?'smooth':'instant'});
+  }
+}
+
 // Examples change only when a visitor chooses one, never as the page scrolls.
 function selectConversation(key,announce=true){
   const example=conversationCases[key];
@@ -157,6 +171,7 @@ function selectConversation(key,announce=true){
   }));
   currentCase=key;
   demoThread.scrollTop=0;
+  if(announce)revealConversationTab(demoTabs.find(tab=>tab.dataset.case===key));
 }
 
 demoTabs.forEach((tab,index)=>{
@@ -176,6 +191,7 @@ demoTabs.forEach((tab,index)=>{
 });
 function updateTabOrientation(){
   demoTabList.setAttribute('aria-orientation',mobileDemo.matches?'horizontal':'vertical');
+  revealConversationTab(demoTabs.find(tab=>tab.dataset.case===currentCase),false);
 }
 mobileDemo.addEventListener('change',updateTabOrientation);
 updateTabOrientation();
