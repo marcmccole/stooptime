@@ -36,3 +36,44 @@
 @media(max-width:760px) and (max-height:620px){.demo-copy h2{font-size:28px;min-height:1.08em}.demo-copy>p{display:none}.demo-layout{gap:12px}.demo-stage{padding:12px 0}.device-screen{height:clamp(300px,calc(100svh - 175px),400px)}.device-status{flex-basis:38px;height:38px}.device-caption{margin-top:8px}}
 
 .header .nav-join.text-stoop{gap:8px;padding:9px 14px;font-size:14px;min-height:44px}
+
+/* Phone mock-up keeps real iPhone proportions (393:852). Its width follows the height available,
+   so it gets smaller on short windows without changing shape. */
+.demo-device-area{--device-budget:calc(100svh - 150px);width:clamp(210px,calc(var(--device-budget)*.4613 + 18px),314px);max-width:100%}
+.demo-device .device-screen{height:auto;aspect-ratio:393/852}
+@media(max-width:760px){.demo-device-area{--device-budget:calc(100svh - 300px);width:clamp(200px,calc(var(--device-budget)*.4613 + 18px),296px);max-width:calc(100% - 44px)}}
+@media(min-width:761px) and (max-height:650px){.demo-device-area{--device-budget:calc(100svh - 100px)}}
+@media(max-width:760px) and (max-height:620px){.demo-device-area{--device-budget:calc(100svh - 175px)}}
+/* Everything inside the phone is sized in cqw (1% of the screen's width), so the contents keep the
+   same proportions as the mock-up grows or shrinks. Ratios follow a real iMessage screen. Browsers
+   without container units ignore these and keep the fixed sizes above. */
+.demo-device{border-radius:15%/7.1%}
+.demo-device .device-screen{container-type:inline-size;border-radius:13%/6%}
+.demo-device .device-status{height:14cqw;flex-basis:14cqw;padding:2.4cqw 9cqw 0;font-size:4.8cqw}
+.demo-device .device-island{width:32cqw;height:9.4cqw;top:3.2cqw;border-radius:5cqw}
+.demo-device .device-island::after{width:3cqw;height:3cqw;right:3.4cqw;top:3.2cqw}
+.demo-device .device-indicators{gap:1.4cqw}
+.demo-device .device-indicators svg{width:5.6cqw;height:auto}
+.demo-device .device-battery{width:6.8cqw;height:3.5cqw;border-radius:1cqw;margin-left:.3cqw}
+.demo-device .device-contact{flex-basis:27cqw;padding:1cqw 0 3cqw}
+.demo-device .device-person{gap:1.8cqw;font-size:3.9cqw}
+.demo-device .device-avatar{width:15cqw;height:15cqw;font-size:11.2cqw;letter-spacing:-.7cqw;padding-right:1.4cqw}
+.demo-device .contact-chevron{font-size:4.4cqw;margin-left:1cqw}
+.demo-device .device-back,.demo-device .device-camera{top:4.4cqw;width:10.6cqw;height:10.6cqw}
+.demo-device .device-back{left:4.4cqw;font-size:10cqw;padding-bottom:1cqw}
+.demo-device .device-camera{right:4.4cqw}
+.demo-device .device-camera svg{width:6.4cqw;height:auto}
+.demo-device .device-thread{padding:5.4cqw 4cqw 3.6cqw}
+.demo-device .device-date{font-size:3.4cqw;margin:auto 0 5cqw;padding-top:1cqw}
+.demo-device .device-messages{gap:2.2cqw}
+.demo-device .demo-message{font-size:4.75cqw;line-height:1.3;padding:2.6cqw 3.8cqw;max-width:77%;border-radius:5.2cqw}
+.demo-device .demo-message.sent{border-bottom-right-radius:1.8cqw}
+.demo-device .demo-message.received{border-bottom-left-radius:1.8cqw}
+.demo-device .demo-message::after{width:3.2cqw;height:3.8cqw}
+.demo-device .demo-message.sent::after{right:-1cqw;border-bottom-left-radius:2.8cqw}
+.demo-device .demo-message.received::after{left:-1cqw;border-bottom-right-radius:2.8cqw}
+.demo-device .device-composer{flex-basis:14cqw;gap:2.7cqw;padding:1cqw 4cqw 2cqw}
+.demo-device .composer-plus{width:10cqw;height:10cqw;font-size:8cqw}
+.demo-device .composer-field{font-size:4cqw;padding:2.6cqw 3.8cqw;border-radius:7cqw}
+.demo-device .composer-field svg{width:3.6cqw;height:auto}
+.demo-device .device-home{flex-basis:max(4px,1.5cqw);width:37cqw;margin:2cqw auto 2.6cqw}
