@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#e9f0e9">
+  <meta name="theme-color" content="#ffe8c6">
   <meta name="description" content="One number for a little help, useful local knowledge, and a closer connection to the people nearby. Meet Stoop.">
   <title>Stoop — Text your neighbors.</title>
   <link rel="canonical" href="https://stooptime.com/">
@@ -24,12 +24,14 @@
   <link rel="icon" href="/landing/assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/landing/assets/dm-sans-400.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/landing/style.css">
+  <link rel="stylesheet" href="/landing/clay.css">
   <script src="/landing/app.js" defer></script>
+  <script src="/landing/clay.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <main id="main">
-    <section class="hero-shell" aria-labelledby="hero-heading">
+    <section class="hero-shell clay-hero" aria-labelledby="hero-heading">
       <header class="header wrap">
         <a class="wordmark" href="#" aria-label="Stoop home">stoop</a>
         <nav aria-label="Main navigation"><a class="nav-join text-stoop" href="sms:+14152904186&amp;body=so%20what%27s%20the%20deal%20with%20stoop%20anyway%3F" aria-label="Get started (opens Messages)"><svg class="messages-icon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#34c759"/><path d="M20 7.5c-8 0-14 5-14 11.4 0 4 2.4 7.5 6.1 9.5-.1 2-1 4-2 5.4 3.6-.5 6.1-2.1 7.3-3.7.9.1 1.7.2 2.6.2 8 0 14-5 14-11.4S28 7.5 20 7.5Z" fill="white"/></svg>Get started</a></nav>
@@ -41,10 +43,10 @@
         <p class="hero-small">No app. No feed. No spam</p>
       </div>
       <picture class="neighborhood-picture">
-        <source media="(max-width: 480px)" type="image/webp" srcset="/landing/assets/brownstones-mobile-frame.webp" width="941" height="1672">
-        <source media="(max-width: 480px)" srcset="/landing/assets/brownstones-mobile-frame.png" width="941" height="1672">
-        <source type="image/webp" srcset="/landing/assets/brownstones.webp" width="1774" height="887">
-        <img class="neighborhood-art" src="/landing/assets/brownstones.png" alt="Neighbors chatting and sharing a plant on leafy New York brownstone stoops." width="1774" height="887" fetchpriority="high">
+        <source media="(max-width: 760px)" type="image/webp" srcset="/landing/assets/clay-hero-mobile.webp" width="941" height="1672">
+        <source media="(max-width: 760px)" srcset="/landing/assets/clay-hero-mobile.png" width="941" height="1672">
+        <source type="image/webp" srcset="/landing/assets/clay-hero.webp" width="1584" height="992">
+        <img class="neighborhood-art" src="/landing/assets/clay-hero.png" alt="Handmade clay neighbors sharing flowers and reading on their stoops, with a little yellow messenger walking between them." width="1584" height="992" fetchpriority="high">
       </picture>
     </section>
 
@@ -76,6 +78,29 @@
       </div>
     </section>
 
+    <section id="how-stoop-works" class="clay-explainer" aria-label="How Stoop finds the right neighbor">
+      <ol class="clay-steps">
+        <li class="clay-step">
+          <div class="clay-scene clay-scene-text">
+            <picture><source type="image/webp" srcset="/landing/assets/clay-text.webp"><img src="/landing/assets/clay-text.png" alt="A neighbor sends a text while Stoop waits beside them with an envelope." width="1448" height="1086" loading="lazy" decoding="async"></picture>
+          </div>
+          <div class="clay-caption"><h2>You text Stoop.</h2><p>“Can I borrow a ladder?”</p></div>
+        </li>
+        <li class="clay-step">
+          <div class="clay-scene clay-scene-remember">
+            <picture><source type="image/webp" srcset="/landing/assets/clay-remember.webp"><img src="/landing/assets/clay-remember.png" alt="Stoop checks its notebook: Alex has a ladder." width="1448" height="1086" loading="lazy" decoding="async"></picture>
+          </div>
+          <div class="clay-caption"><h2>Stoop knows who to ask.</h2><p>Alex told Stoop he has one.</p></div>
+        </li>
+        <li class="clay-step">
+          <div class="clay-scene clay-scene-deliver">
+            <picture><source type="image/webp" srcset="/landing/assets/clay-deliver.webp"><img src="/landing/assets/clay-deliver.png" alt="Stoop hands one envelope to Alex, who waves and holds a ladder." width="1448" height="1086" loading="lazy" decoding="async"></picture>
+          </div>
+          <div class="clay-caption"><h2>Only Alex gets a text.</h2><p>The rest of the block stays quiet.</p></div>
+        </li>
+      </ol>
+    </section>
+
     <section class="join-section" id="join" aria-labelledby="join-heading">
       <div class="wrap join-grid">
         <div class="join-copy"><h2 id="join-heading">Get Stoop<br>on your street.</h2><p>We’re starting in Mt. Davidson Manor.<br>Leave your number and we’ll text you when your street is on.</p></div>
@@ -90,7 +115,7 @@
           </form>
         </div>
       </div>
-      <footer class="footer wrap"><a href="#" class="wordmark" aria-label="Back to top">stoop</a><a href="#how-it-works">How it works <span aria-hidden="true">↗</span></a><span class="concept-note">© 2026 Stoop Inc.</span></footer>
+      <footer class="footer wrap"><a href="#" class="wordmark" aria-label="Back to top">stoop</a><a href="#how-stoop-works">How it works <span aria-hidden="true">↗</span></a><span class="concept-note">© 2026 Stoop Inc.</span></footer>
     </section>
   </main>
 </body>
