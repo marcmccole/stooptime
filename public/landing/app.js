@@ -169,7 +169,6 @@ function showConversation(key,count,animate=false,announce=false){
   if(key===currentCase&&count===currentCount)return;
   const changingCase=key!==currentCase;
   phoneMessages.setAttribute('aria-live',announce?'polite':'off');
-  document.getElementById('demo-description').textContent=example.description;
   demoTabs.forEach(tab=>{const active=tab.dataset.case===key;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
   demoPanel.setAttribute('aria-labelledby','demo-tab-'+key);
   if(changingCase||count<currentCount)phoneMessages.replaceChildren();
