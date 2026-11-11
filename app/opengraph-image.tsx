@@ -6,13 +6,11 @@ export const alt = "Stoop — Text your neighbors.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// The link-preview card: the "Text your neighbors." lettering from the homepage on the
-// homepage's pale green background, with the wordmark above and the one-line pitch below.
+// The link-preview card keeps the homepage lettering large, with the wordmark above.
 export default async function Image() {
   const assets = join(process.cwd(), "public", "landing", "assets");
-  const [lettering, dmSans500, dmSans800] = await Promise.all([
+  const [lettering, dmSans800] = await Promise.all([
     readFile(join(assets, "headline.png"), "base64"),
-    readFile(join(assets, "dm-sans-500.ttf")),
     readFile(join(assets, "dm-sans-800.ttf")),
   ]);
 
@@ -51,17 +49,12 @@ export default async function Image() {
           alt=""
           width={880}
           height={339}
-          style={{ marginTop: 34 }}
         />
-        <div style={{ display: "flex", marginTop: 26, fontSize: 32, fontWeight: 500, letterSpacing: -0.5 }}>
-          One number for the whole neighborhood.
-        </div>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: "DM Sans", data: dmSans500, weight: 500, style: "normal" },
         { name: "DM Sans", data: dmSans800, weight: 800, style: "normal" },
       ],
     }
