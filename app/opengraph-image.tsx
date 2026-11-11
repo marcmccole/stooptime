@@ -1,21 +1,20 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const runtime = "edge";
-export const alt = "Stoop — Meet your neighbors";
+export const alt = "Stoop — Text your neighbors.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// The link-preview card: the "Text your neighbors." lettering from the homepage on the
+// homepage's pale green background, with the wordmark above and the one-line pitch below.
 export default async function Image() {
-  // Fetch Plus Jakarta Sans ExtraBold from Google Fonts at runtime
-  const fontRes = await fetch(
-    "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800",
-    { headers: { "User-Agent": "Mozilla/5.0" } }
-  );
-  const css = await fontRes.text();
-  const fontUrl = css.match(/url\((https:\/\/[^)]+)\)/)?.[1];
-  const fontData = fontUrl
-    ? await fetch(fontUrl).then((r) => r.arrayBuffer())
-    : null;
+  const assets = join(process.cwd(), "public", "landing", "assets");
+  const [lettering, dmSans500, dmSans800] = await Promise.all([
+    readFile(join(assets, "headline.png"), "base64"),
+    readFile(join(assets, "dm-sans-500.ttf")),
+    readFile(join(assets, "dm-sans-800.ttf")),
+  ]);
 
   return new ImageResponse(
     (
@@ -23,31 +22,48 @@ export default async function Image() {
         style={{
           width: 1200,
           height: 630,
-          background: "#E8521A",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: '"Plus Jakarta Sans"',
+          position: "relative",
+          background: "linear-gradient(180deg, #e1eeea 0%, #edf2e9 42%, #f8f7ec 78%, #fbf8ee 97%)",
+          fontFamily: '"DM Sans"',
+          color: "#203f32",
         }}
       >
         <div
           style={{
-            fontSize: 140,
-            fontWeight: 800,
-            color: "#FFFFFF",
-            letterSpacing: "-4px",
+            position: "absolute",
+            top: 44,
+            left: 60,
             display: "flex",
+            fontSize: 46,
+            fontWeight: 800,
+            letterSpacing: -3,
+            lineHeight: 1,
           }}
         >
-          Stoop
+          stoop
+        </div>
+        <img
+          src={`data:image/png;base64,${lettering}`}
+          alt=""
+          width={880}
+          height={339}
+          style={{ marginTop: 34 }}
+        />
+        <div style={{ display: "flex", marginTop: 26, fontSize: 32, fontWeight: 500, letterSpacing: -0.5 }}>
+          One number for the whole neighborhood.
         </div>
       </div>
     ),
     {
       ...size,
-      fonts: fontData
-        ? [{ name: "Plus Jakarta Sans", data: fontData, weight: 800 }]
-        : [],
+      fonts: [
+        { name: "DM Sans", data: dmSans500, weight: 500, style: "normal" },
+        { name: "DM Sans", data: dmSans800, weight: 800, style: "normal" },
+      ],
     }
   );
 }
