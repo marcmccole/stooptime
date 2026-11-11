@@ -107,3 +107,8 @@
 @media(max-width:760px) and (max-height:620px){.demo-copy h2{font-size:26px}}
 /* The line under the demo heading is now one fixed sentence, so it no longer reserves two lines. */
 .demo-copy>p{min-height:0}
+
+.footer-links{display:flex;align-items:center;gap:24px;margin-left:auto}
+.footer .footer-links a{margin-left:0}
+@media(max-width:760px){.footer-links{gap:18px}.header nav{gap:20px}}
+@media(max-width:360px){.header nav{gap:12px}.header .nav-join.text-stoop{font-size:13px;padding-inline:11px}}
