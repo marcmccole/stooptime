@@ -142,104 +142,53 @@ document.querySelectorAll('.text-stoop').forEach(link => {
 const demoTabs=[...document.querySelectorAll('.demo-tab')];
 const demoPanel=document.getElementById('demo-panel');
 const phoneMessages=document.getElementById('phone-messages');
-const demoSection=document.getElementById('how-it-works');
-const demoStage=document.querySelector('.demo-stage');
 const demoThread=document.querySelector('.device-thread');
 const demoTabList=document.querySelector('.demo-tabs');
-const caseKeys=Object.keys(conversationCases);
-const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 const mobileDemo=window.matchMedia('(max-width:760px)');
-let storyEnabled=false;
-let storyTop=0;
-let storyStep=650;
 let currentCase='';
-let currentCount=-1;
-let scrollFrame=0;
 
-// Each chapter shows its whole conversation; scrolling only moves between chapters.
-function getConversationFrame(distance,step,counts){
-  const progress=Math.max(0,distance/step);
-  const index=Math.min(counts.length-1,Math.floor(progress));
-  return {index,count:counts[index]};
-}
-
-function showConversation(key,count,animate=false,announce=false){
-  const example=conversationCases[key];if(!example)return;
-  count=Math.min(count,example.messages.length);
-  if(key===currentCase&&count===currentCount)return;
-  const changingCase=key!==currentCase;
+// Examples change only when a visitor chooses one, never as the page scrolls.
+function selectConversation(key,announce=true){
+  const example=conversationCases[key];
+  if(!example||key===currentCase)return;
   phoneMessages.setAttribute('aria-live',announce?'polite':'off');
-  demoTabs.forEach(tab=>{const active=tab.dataset.case===key;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
-  demoPanel.setAttribute('aria-labelledby','demo-tab-'+key);
-  if(changingCase||count<currentCount)phoneMessages.replaceChildren();
-  const start=phoneMessages.children.length;
-  example.messages.slice(start,count).forEach(([direction,text],i)=>{
-    const p=document.createElement('p');p.className='demo-message '+(direction==='out'?'sent':'received');p.textContent=text;
-    if(animate&&!reducedMotion.matches){p.classList.add('arriving');p.style.setProperty('--message-delay',(i*45)+'ms');}
-    phoneMessages.appendChild(p);
+  demoTabs.forEach(tab=>{
+    const active=tab.dataset.case===key;
+    tab.setAttribute('aria-selected',String(active));
+    tab.tabIndex=active?0:-1;
   });
-  currentCase=key;currentCount=count;
-  demoThread.scrollTop=demoThread.scrollHeight;
-  if(changingCase&&mobileDemo.matches){
-    const selected=demoTabs.find(tab=>tab.dataset.case===key);
-    const tabRect=selected.getBoundingClientRect();
-    const listRect=demoTabList.getBoundingClientRect();
-    if(tabRect.left<listRect.left+20||tabRect.right>listRect.right-20){
-      demoTabList.scrollLeft+=tabRect.left-listRect.left-(listRect.width-tabRect.width)/2;
-    }
-  }
+  demoPanel.setAttribute('aria-labelledby','demo-tab-'+key);
+  phoneMessages.replaceChildren(...example.messages.map(([direction,text])=>{
+    const message=document.createElement('p');
+    message.className='demo-message '+(direction==='out'?'sent':'received');
+    message.textContent=text;
+    return message;
+  }));
+  currentCase=key;
+  demoThread.scrollTop=0;
 }
 
-function updateStory(){
-  scrollFrame=0;
-  if(!storyEnabled)return;
-  const frame=getConversationFrame(window.scrollY-storyTop,storyStep,caseKeys.map(key=>conversationCases[key].messages.length));
-  showConversation(caseKeys[frame.index],frame.count,true);
-}
-function queueStory(){
-  if(storyEnabled&&!scrollFrame)scrollFrame=requestAnimationFrame(updateStory);
-}
-function measureStory(){
-  // Short landscape screens and reduced-motion visitors use the same manual tabs.
-  storyEnabled=!reducedMotion.matches&&window.innerHeight>=560;
-  demoSection.classList.toggle('is-scroll-story',storyEnabled);
-  demoTabList.setAttribute('aria-orientation',mobileDemo.matches?'horizontal':'vertical');
-  if(storyEnabled){
-    storyStep=Math.max(380,demoStage.offsetHeight*.6);
-    demoSection.style.height=(demoStage.offsetHeight+caseKeys.length*storyStep)+'px';
-    storyTop=demoSection.getBoundingClientRect().top+window.scrollY;
-    updateStory();
-  }else{
-    demoSection.style.removeProperty('height');
-    const key=currentCase||caseKeys[0];
-    showConversation(key,conversationCases[key].messages.length);
-  }
-}
-function selectConversation(key){
-  if(storyEnabled){
-    const index=caseKeys.indexOf(key);
-    window.scrollTo({top:storyTop+(index+.62)*storyStep,behavior:'instant'});
-  }
-  showConversation(key,conversationCases[key].messages.length,false,true);
-}
 demoTabs.forEach((tab,index)=>{
   tab.addEventListener('click',()=>selectConversation(tab.dataset.case));
   tab.addEventListener('keydown',event=>{
     let next;
     if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%demoTabs.length;
     if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index-1+demoTabs.length)%demoTabs.length;
-    if(event.key==='Home')next=0;if(event.key==='End')next=demoTabs.length-1;
-    if(next!==undefined){event.preventDefault();selectConversation(demoTabs[next].dataset.case);demoTabs[next].focus({preventScroll:true});}
+    if(event.key==='Home')next=0;
+    if(event.key==='End')next=demoTabs.length-1;
+    if(next!==undefined){
+      event.preventDefault();
+      selectConversation(demoTabs[next].dataset.case);
+      demoTabs[next].focus({preventScroll:true});
+    }
   });
 });
-window.addEventListener('scroll',queueStory,{passive:true});
-window.addEventListener('resize',measureStory);
-window.addEventListener('load',measureStory);
-window.addEventListener('pageshow',measureStory);
-reducedMotion.addEventListener('change',measureStory);
-mobileDemo.addEventListener('change',measureStory);
-document.fonts.ready.then(measureStory);
-measureStory();
+function updateTabOrientation(){
+  demoTabList.setAttribute('aria-orientation',mobileDemo.matches?'horizontal':'vertical');
+}
+mobileDemo.addEventListener('change',updateTabOrientation);
+updateTabOrientation();
+selectConversation('borrow',false);
 
 const form=document.getElementById('join-form');
 const phone=document.getElementById('phone');
