@@ -107,3 +107,14 @@
 @media(max-width:360px){.demo-copy h2{font-size:27px;letter-spacing:-1.2px}}
 @media(min-width:761px) and (max-height:650px){.demo-copy h2{font-size:40px}}
 @media(max-width:760px) and (max-height:620px){.demo-copy h2{font-size:26px}}
+
+/* On wide, short windows the hero art (always half as tall as the window is wide) is taller than
+   the hero, so its treetops climb over the header and hide the wordmark and Get started button.
+   Fade the art out where it would pass behind the header. --fade is the header's lower edge
+   measured from the top of the art; it is negative, and so has no effect, whenever the art
+   already sits below the header. */
+@media(min-width:1001px){
+.hero-shell{--hero-h:clamp(820px,100svh,1100px)}
+.neighborhood-art{--fade:calc(50vw - var(--hero-h) + 80px);-webkit-mask-image:linear-gradient(to bottom,transparent var(--fade),#000 calc(var(--fade) + 150px));mask-image:linear-gradient(to bottom,transparent var(--fade),#000 calc(var(--fade) + 150px))}
+}
+@media(min-width:1001px) and (max-height:820px){.hero-shell{--hero-h:clamp(780px,100svh,1100px)}}
