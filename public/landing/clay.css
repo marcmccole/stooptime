@@ -40,6 +40,13 @@
   padding: 90px 28px 95px;
   overflow: hidden;
 }
+.clay-heading {
+  margin: 0 auto 36px;
+  text-align: center;
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
 .clay-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -64,7 +71,7 @@
 }
 .clay-scene-remember img { width: 85%; margin-inline: auto; }
 .clay-caption { padding: 14px 12px 0; text-align: center; }
-.clay-caption h2 {
+.clay-caption h3 {
   font-size: clamp(21px, 2.1vw, 29px);
   line-height: 1.15;
   font-weight: 500;
@@ -110,7 +117,7 @@
   .clay-step:nth-child(2) .clay-scene { grid-column: 2; grid-row: 1; }
   .clay-step:nth-child(2) .clay-caption { grid-column: 1; grid-row: 1; }
   .clay-caption { padding: 0; text-align: left; }
-  .clay-caption h2 { font-size: clamp(21px, 5.8vw, 29px); letter-spacing: -.8px; }
+  .clay-caption h3 { font-size: clamp(21px, 5.8vw, 29px); letter-spacing: -.8px; }
   .clay-caption p { font-size: 14px; line-height: 1.45; margin-top: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
