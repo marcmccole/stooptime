@@ -51,29 +51,29 @@ const conversationCases = {
       ]
     ]
   },
-  "bike": {
-    "title": "Find a bike.",
-    "description": "Stoop remembers what you’re looking for.",
+  "plumber": {
+    "title": "Find a plumber.",
+    "description": "For when it really can’t wait.",
     "messages": [
       [
+        "out",
+        "Pipe just burst under the sink! Anyone know a plumber who’d come tonight?"
+      ],
+      [
         "in",
-        "Still looking for a bike for your daughter?"
+        "Two neighbors use Marcello’s Plumbing. He takes after-hours calls. Want his number?"
       ],
       [
         "out",
-        "Yes—she’s outgrown hers."
+        "Yes!!"
       ],
       [
         "in",
-        "A neighbor has a 20-inch bike their child’s outgrown. They’d love to pass it along."
-      ],
-      [
-        "in",
-        "Want an introduction?"
+        "Sent. A neighbor on Westgate says the shutoff on these houses is by the water heater."
       ],
       [
         "out",
-        "That would be perfect."
+        "Found it. Thank you!"
       ]
     ]
   },
