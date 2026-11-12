@@ -14,7 +14,7 @@
   padding: 18px 34px;
 }
 .map-hero .hero-content { margin: 0; padding: 24px 24px 0; }
-.map-hero .hero-content h1 { width: min(44vw, 600px); max-width: none; }
+.map-hero .hero-content h1 { width: min(52vw, 720px, 80svh); max-width: none; }
 .map-hero .hero-content > p:not(.hero-small) {
   max-width: 600px;
   margin: 22px auto 0;
@@ -53,7 +53,7 @@
 @media (min-width: 1001px) and (max-height: 800px) {
   .map-hero .header { height: 72px; padding-block: 14px; }
   .map-hero .hero-content { padding-top: 6px; }
-  .map-hero .hero-content h1 { width: min(42vw, 520px); }
+  .map-hero .hero-content h1 { width: min(48vw, clamp(560px, calc(150svh - 460px), 640px)); }
   .map-hero .hero-content > p:not(.hero-small) { margin-top: 18px; font-size: 17px; }
   .map-hero .hero-content .text-stoop { margin-top: 16px; min-height: 46px; font-size: 17px; }
   .map-hero .hero-content .hero-small { margin-top: 8px; }
