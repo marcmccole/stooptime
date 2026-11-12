@@ -1,3 +1,7 @@
+/* Safari uses the document background for the inset around the notch. */
+html, body { background-color: #ffe8c6; }
+main { background: var(--paper); }
+
 /* One connection sits below the live copy, within the desktop viewport. */
 .map-hero {
   --hero-height: clamp(680px, 100svh, 1100px);
@@ -74,6 +78,7 @@
   }
 }
 @media (max-width: 680px) {
+  .map-hero { padding-bottom: 36px; }
   .map-hero .header { height: 74px; padding: 15px 20px; }
   .map-hero .header nav { gap: 14px; }
   .map-hero .header .nav-join.text-stoop { padding: 8px 12px; gap: 7px; font-size: 13px; }
@@ -90,7 +95,7 @@
   .map-hero .hero-content > p:not(.hero-small) br { display: none; }
   .map-hero .hero-content .text-stoop { margin-top: 20px; min-height: 46px; font-size: 17px; }
   .map-hero .hero-content .hero-small { font-size: 12px; }
-  .neighborhood-map { width: min(100%, 450px); margin-top: 16px; }
+  .neighborhood-map { width: min(100%, 450px); margin-top: -12px; }
 }
 @media (max-width: 359px) {
   .map-hero .header { height: 70px; padding-inline: 16px; }
@@ -99,5 +104,5 @@
   .map-hero .hero-content { padding: 16px 18px 0; }
   .map-hero .hero-content > p:not(.hero-small) { font-size: 15px; margin-top: 18px; }
   .map-hero .hero-content .text-stoop { margin-top: 18px; }
-  .neighborhood-map { margin-top: 8px; }
+  .neighborhood-map { margin-top: -12px; }
 }
