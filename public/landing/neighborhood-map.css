@@ -1,4 +1,4 @@
-/* Keep the full map within the desktop viewport, with live copy in its open center. */
+/* One connection sits below the live copy, within the desktop viewport. */
 .map-hero {
   --hero-height: clamp(680px, 100svh, 1100px);
   height: var(--hero-height);
@@ -14,7 +14,7 @@
   padding: 18px 34px;
 }
 .map-hero .hero-content { margin: 0; padding: 24px 24px 0; }
-.map-hero .hero-content h1 { width: min(34vw, 470px); max-width: none; }
+.map-hero .hero-content h1 { width: min(44vw, 600px); max-width: none; }
 .map-hero .hero-content > p:not(.hero-small) {
   max-width: 600px;
   margin: 22px auto 0;
@@ -45,7 +45,7 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(100%, 1900px, calc((var(--hero-height) - 160px) * 2.4));
+  width: min(100%, 1900px, calc((var(--hero-height) - 170px) * 2.5));
   pointer-events: none;
 }
 .neighborhood-map picture, .neighborhood-map-art { display: block; width: 100%; height: auto; }
@@ -53,17 +53,17 @@
 @media (min-width: 1001px) and (max-height: 800px) {
   .map-hero .header { height: 72px; padding-block: 14px; }
   .map-hero .hero-content { padding-top: 6px; }
-  .map-hero .hero-content h1 { width: min(32vw, 400px); }
+  .map-hero .hero-content h1 { width: min(42vw, 520px); }
   .map-hero .hero-content > p:not(.hero-small) { margin-top: 18px; font-size: 17px; }
   .map-hero .hero-content .text-stoop { margin-top: 16px; min-height: 46px; font-size: 17px; }
   .map-hero .hero-content .hero-small { margin-top: 8px; }
 }
 
-/* Tablets keep both columns of houses; phones use the dedicated three-house composition. */
+/* Phones bring the two houses and the operator closer together. */
 @media (max-width: 1000px) {
   .map-hero { height: auto; min-height: 0; padding-bottom: 8px; }
   .map-hero .hero-content { padding-top: 20px; }
-  .map-hero .hero-content h1 { width: min(62vw, 430px); }
+  .map-hero .hero-content h1 { width: min(70vw, 500px); }
   .neighborhood-map {
     position: relative;
     left: auto;
@@ -79,7 +79,7 @@
   .map-hero .header .nav-join.text-stoop { padding: 8px 12px; gap: 7px; font-size: 13px; }
   .map-hero .header .messages-icon { width: 22px; height: 22px; flex-basis: 22px; }
   .map-hero .hero-content { padding: 20px 20px 0; }
-  .map-hero .hero-content h1 { width: min(80vw, 360px); }
+  .map-hero .hero-content h1 { width: min(88vw, 400px); }
   .map-hero .hero-content > p:not(.hero-small) {
     max-width: 360px;
     margin-top: 20px;
