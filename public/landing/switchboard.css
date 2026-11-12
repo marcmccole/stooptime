@@ -1,0 +1,130 @@
+/* The hero stays in document flow so the lettering and scene never overlap. */
+.switchboard-hero {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding-bottom: 0;
+  background: #ffe8c6;
+}
+.switchboard-hero .header {
+  width: 100%;
+  height: auto;
+  min-height: 86px;
+  max-width: 1440px;
+  padding: 22px 34px;
+}
+.switchboard-hero .hero-content { margin: 0; padding: 43px 24px 0; }
+.switchboard-hero .hero-content h1 { width: min(53%, 560px); max-width: none; }
+.switchboard-hero .hero-content > p:not(.hero-small) {
+  max-width: 600px;
+  margin: 30px auto 0;
+  padding: 0;
+  font-size: 19px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #355547;
+}
+.switchboard-hero .hero-content .text-stoop {
+  margin-top: 26px;
+  gap: 10px;
+  padding: 11px 23px 11px 13px;
+  min-height: 48px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.switchboard-hero .hero-content .messages-icon { width: 27px; height: 27px; flex-basis: 27px; }
+.switchboard-hero .hero-content .hero-small {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #526956;
+}
+.switchboard-scene {
+  position: relative;
+  width: 96%;
+  max-width: 1320px;
+  margin: 46px auto 28px;
+}
+.switchboard-scene picture, .switchboard-art { display: block; width: 100%; height: auto; }
+.switchboard-speech {
+  position: absolute;
+  margin: 0;
+  padding: clamp(8px, 1.2vw, 14px);
+  border: 1px solid #f5dbb6;
+  border-radius: 22px;
+  background: #fffaf0;
+  color: var(--ink);
+  font-size: clamp(12px, 1.45vw, 15px);
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 3px 0 #dbbb9126;
+}
+.switchboard-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 34%;
+  width: 17px;
+  height: 19px;
+  background: #fffaf0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.switchboard-question {
+  left: 6.2%;
+  top: 5%;
+  width: 15%;
+  height: clamp(70px, 8.5vw, 91px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.switchboard-recommendation { left: 68.4%; top: 2%; width: 15.5%; }
+.switchboard-experience { right: 0; top: 2%; width: 15.2%; }
+.switchboard-solar { position: relative; width: 89px; height: 59px; transform: scale(.45); transform-origin: center; }
+.switchboard-sun { position: absolute; right: 0; top: -3px; stroke: #e9b743; stroke-width: 1.8; stroke-linecap: round; }
+.switchboard-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  position: absolute;
+  left: 5px;
+  top: 13px;
+  width: 62px;
+  height: 40px;
+  padding: 4px;
+  border-radius: 4px;
+  background: #7b969f;
+  transform: skewY(-7deg);
+  box-shadow: 3px 3px 0 #c0b79b;
+}
+.switchboard-panel span { background: #4d6f8b; border-radius: 1px; }
+
+@media (max-width: 680px) {
+  .switchboard-hero .header { min-height: 78px; padding: 18px 22px; }
+  .switchboard-hero .header nav { gap: 14px; }
+  .switchboard-hero .header .nav-join.text-stoop { padding: 8px 12px; gap: 7px; font-size: 13px; }
+  .switchboard-hero .header .messages-icon { width: 22px; height: 22px; flex-basis: 22px; }
+  .switchboard-hero .hero-content { padding: 38px 22px 0; }
+  .switchboard-hero .hero-content h1 { width: 100%; max-width: 380px; }
+  .switchboard-hero .hero-content > p:not(.hero-small) {
+    max-width: 360px;
+    margin-top: 25px;
+    font-size: 17px;
+    line-height: 1.6;
+    text-wrap: balance;
+  }
+  .switchboard-hero .hero-content > p:not(.hero-small) br { display: none; }
+  .switchboard-hero .hero-content .text-stoop { margin-top: 25px; padding: 10px 21px 10px 12px; min-height: 46px; font-size: 17px; }
+  .switchboard-hero .hero-content .hero-small { font-size: 12px; }
+  .switchboard-scene { width: 92%; max-width: 410px; margin: 20px auto; }
+  .switchboard-speech { display: none; }
+}
+@media (max-width: 359px) {
+  .switchboard-hero .header { padding: 16px; }
+  .switchboard-hero .header nav { gap: 10px; }
+  .switchboard-hero .hero-content { padding: 32px 19px 0; }
+  .switchboard-hero .hero-content > p:not(.hero-small) { font-size: 16px; }
+}
