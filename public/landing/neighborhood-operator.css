@@ -79,6 +79,11 @@ main { background: var(--paper); }
   .operator-hero .neighborhood-art { height: auto; object-fit: initial; }
 }
 @media (max-width: 680px) {
+  .operator-hero { min-height: 100svh; }
+  .operator-hero .neighborhood-art {
+    mask-image: linear-gradient(transparent, #000 16%, #000 95%, transparent);
+    -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 95%, transparent);
+  }
   .operator-hero .header { height: 74px; padding: 15px 20px; }
   .operator-hero .header nav { gap: 14px; }
   .operator-hero .header .nav-join.text-stoop { padding: 8px 12px; gap: 7px; font-size: 13px; }
@@ -103,10 +108,4 @@ main { background: var(--paper); }
   .operator-hero .hero-content { padding: 16px 18px 0; }
   .operator-hero .hero-content > p:not(.hero-small) { font-size: 15px; margin-top: 18px; }
   .operator-hero .hero-content .text-stoop { margin-top: 18px; }
-}
-@media (max-width: 680px) and (max-height: 740px) {
-  .operator-hero { padding-bottom: 66vw; }
-  .operator-hero .hero-content { padding-top: 8px; }
-  .operator-hero .hero-content > p:not(.hero-small) { margin-top: 16px; }
-  .operator-hero .hero-content .text-stoop { margin-top: 16px; }
 }
