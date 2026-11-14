@@ -70,6 +70,9 @@ main { background: var(--paper); }
 @media (min-width: 1001px) and (min-aspect-ratio: 2/1) {
   .operator-hero .hero-content h1 { width: min(46vw, 60svh); }
 }
+@media (min-width: 1600px) and (max-height: 800px) {
+  .operator-hero .hero-content > p:not(.hero-small) { max-width: 680px; }
+}
 
 /* The portrait scene leaves room for live copy above the neighbors. */
 @media (max-width: 1000px) {
