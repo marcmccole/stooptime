@@ -41,11 +41,25 @@
   overflow: hidden;
 }
 .clay-heading {
-  margin: 0 auto 36px;
+  margin: 0 auto;
   text-align: center;
   font-size: clamp(36px, 4.8vw, 64px);
   line-height: 1.08;
   letter-spacing: -2px;
+}
+.clay-intro {
+  margin: 14px auto 36px;
+  max-width: 600px;
+  text-align: center;
+  font-size: 19px;
+  color: var(--muted);
+}
+.clay-reassurance {
+  margin: 44px auto 0;
+  max-width: 620px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--muted);
 }
 .clay-steps {
   display: grid;
@@ -69,7 +83,7 @@
   width: 100%;
   height: auto;
 }
-.clay-scene-remember img { width: 85%; margin-inline: auto; }
+.clay-scene-switchboard img { width: 90%; margin-inline: auto; }
 .clay-caption { padding: 14px 12px 0; text-align: center; }
 .clay-caption h3 {
   font-size: clamp(21px, 2.1vw, 29px);
@@ -111,6 +125,8 @@
   }
   .clay-hero .hero-content h1 { width: 80%; max-width: 416px; }
   .clay-explainer { padding: 55px 20px 60px; }
+  .clay-intro { font-size: 17px; margin-bottom: 32px; }
+  .clay-reassurance { font-size: 14px; margin-top: 36px; max-width: 310px; }
   .clay-steps { display: flex; flex-direction: column; gap: 44px; max-width: 520px; }
   .clay-step { display: grid; grid-template-columns: 52% 1fr; align-items: center; gap: 14px; }
   .clay-step:nth-child(2) { grid-template-columns: 1fr 52%; }
