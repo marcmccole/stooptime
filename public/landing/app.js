@@ -1,27 +1,27 @@
 const conversationCases = {
-  "borrow": {
-    "title": "Borrow a ladder.",
-    "description": "There’s probably one a few doors down.",
+  "families": {
+    "title": "Meet other families.",
+    "description": "Join your neighbors, then make a plan.",
     "messages": [
       [
         "out",
-        "Anyone have a tall ladder I could borrow Saturday?"
+        "hello! we’re on Upland."
       ],
       [
         "in",
-        "A neighbor on Upland has one you can borrow. Want an intro?"
+        "Welcome! 52 of your neighbors are here too."
+      ],
+      [
+        "out",
+        "Any families with young kids up for Aptos Park on Saturday? We have a 3-year-old."
+      ],
+      [
+        "in",
+        "A family with a 4-year-old would love to join. They’re happy to meet—want an intro?"
       ],
       [
         "out",
         "Yes please!"
-      ],
-      [
-        "in",
-        "They’re happy to meet too. Meet Alex, two doors down."
-      ],
-      [
-        "out",
-        "Amazing. Thank you!"
       ]
     ]
   },
@@ -51,81 +51,77 @@ const conversationCases = {
       ]
     ]
   },
-  "plumber": {
-    "title": "Find a plumber.",
-    "description": "For when it really can’t wait.",
+  "solar": {
+    "title": "Figure out solar.",
+    "description": "A recommendation, and someone who’s been through it.",
     "messages": [
       [
         "out",
-        "Pipe just burst under the sink! Anyone know a plumber who’d come tonight?"
+        "Thinking about solar. Anyone nearby who’s done it?"
       ],
       [
         "in",
-        "Two neighbors use Marcello’s Plumbing. He takes after-hours calls. Want his number?"
+        "A neighbor on Westgate has. They’re happy to share who they used and what they learned."
       ],
       [
         "out",
-        "Yes!!"
+        "I’d love to know what to ask and what they’d do differently."
       ],
       [
         "in",
-        "Sent. A neighbor on Westgate says the shutoff on these houses is by the water heater."
+        "They said to get the roof inspected first. Want me to introduce you?"
       ],
       [
         "out",
-        "Found it. Thank you!"
+        "Yes please."
       ]
     ]
   },
-  "park": {
-    "title": "Meet other families.",
-    "description": "Find someone to join you at the park.",
+  "bookclub": {
+    "title": "Start a book club.",
+    "description": "Find a few neighbors to read with.",
     "messages": [
       [
         "out",
-        "any families with young kids? thinking of going to the park, would love to hang out!"
+        "Anyone interested in starting a book club?"
       ],
       [
         "in",
-        "I can ask nearby families. When are you thinking?"
+        "I can ask around. What do you like to read?"
       ],
       [
         "out",
-        "Saturday morning? We have a 3-year-old."
+        "Mostly novels. Nothing too serious!"
       ],
       [
         "in",
-        "A family nearby with a 4-year-old would love to join. They’re happy to be introduced—are you?"
+        "Three neighbors would love to join. They’re happy to be introduced—are you?"
       ],
       [
         "out",
-        "Yes, please!"
+        "Yes! Let’s pick our first book."
       ]
     ]
   },
-  "help": {
-    "title": "Lend a hand.",
-    "description": "Sometimes you’re the neighbor who can help.",
+  "coyotes": {
+    "title": "Coyotes at the park.",
+    "description": "A heads-up from someone nearby.",
     "messages": [
       [
         "in",
-        "A neighbor is away until Sunday. A package just landed on their steps."
-      ],
-      [
-        "in",
-        "You mentioned you’re usually home. Could you grab it for them?"
+        "A neighbor just spotted two coyotes at Aptos Park after the rain."
       ],
       [
         "out",
-        "Sure, happy to."
+        "Wow! We walk the dog there every morning. Thanks for the heads-up."
       ],
       [
         "in",
-        "Thanks! They’re happy to meet. Can I introduce you?"
+        "Want me to keep you posted about the park?"
       ],
       [
         "out",
-        "Yep!"
+        "Yes please."
       ]
     ]
   }
@@ -195,7 +191,7 @@ function updateTabOrientation(){
 }
 mobileDemo.addEventListener('change',updateTabOrientation);
 updateTabOrientation();
-selectConversation('borrow',false);
+selectConversation('families',false);
 
 const form=document.getElementById('join-form');
 const phone=document.getElementById('phone');
